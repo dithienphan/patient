@@ -2,7 +2,7 @@
   "name": "patient",
   "version": "2023.1.0",
   "description": "Beispiel",
-  "author": "Juergen Zimmermann",
+  "author": "Achim Seelhorst & Dinh Thien Phan & Jakob Lux",
   "private": true,
   "license": "GPL-3.0",
   "exports": "./dist/src/main.js",
