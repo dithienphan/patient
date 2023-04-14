@@ -1,0 +1,64 @@
+' Preview durch <Alt>d
+
+@startuml Entity
+
+package typeorm {
+  class "@Entity" as Entity
+  hide Entity circle
+  class "@Column" as Column
+  hide Column circle
+  class "@PrimaryColumn" as PrimaryColumn
+  hide PrimaryColumn circle
+  class "@OneToMany" as OneToMany
+  hide OneToMany circle
+  class "@JoinColumn" as JoinColumn
+  hide JoinColumn circle
+  class "@ManyToOne" as ManyToOne
+  hide ManyToOne circle
+  class "@CreateDateColumn" as CreateDateColumn
+  hide CreateDateColumn circle
+  class "@UpdateDateColumn" as UpdateDateColumn
+  hide UpdateDateColumn circle
+}
+
+package patient.entity {
+    class "type PatientVersicherungsart = 'GESETZLICHE' | 'PRIVATE'" as PatientVersicherungsart
+  hide PatientVersicherungsart circle
+    
+    class Patient <<entity>> <<@Entity>> {
+        @Column() @PrimaryColumn() readonly id: number
+        @Column() readonly version: number
+        @Column() readonly versichertennummer: number
+        @Column() readonly versicherungsart: PatientVersicherungsart
+        @Column() readonly versicherug: Versicherung
+        @Column() readonly geschlecht: Geschlecht
+        @Column() readonly geburtsdatum: Date
+        @Column() readonly intensiv: boolean
+        @Column() readonly diagnose?: string
+        @CreateDateColumn() readonly erzeugt: Date
+        @UpdateDateColumn() readonly aktualisiert: Date
+    }
+
+    class Name <<entity>> <<@Entity>> {
+        @Column() @PrimaryColumn() readonly id: number
+        @Column() readonly nachname: string
+        @Column() readonly vorname: string
+    }
+
+    class Operation <<entity>> <<@Entity>> {
+        @Column() @PrimaryColumn() readonly id: number
+        @Column() readonly operationsTyp: string
+        @Column() readonly datum?: Date
+    }
+}
+
+Patient ..> Entity
+Patient *-- "*" Name : @OneToOne() Name
+Patient *-- "*" Operation : @OneToMany() operationen
+Patient .up.> PatientVersicherungsart
+
+hide empty members
+
+footer (c) Gruppe7
+
+@enduml
