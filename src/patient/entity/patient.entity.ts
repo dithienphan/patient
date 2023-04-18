@@ -1,4 +1,3 @@
-
 // Nest unterstützt verschiedene Werkzeuge fuer OR-Mapping
 // https://docs.nestjs.com/techniques/database
 //  * TypeORM     https://typeorm.io
@@ -33,10 +32,9 @@ import {
     UpdateDateColumn,
     VersionColumn,
 } from 'typeorm';
-import { Operation } from './operation.entity.js';
 import { ApiProperty } from '@nestjs/swagger';
-import { DecimalTransformer } from './decimal-transformer.js';
 import { Name } from './name.entity.js';
+import { Operation } from './operation.entity.js';
 import { dbType } from '../../config/dbtype.js';
 
 /**
@@ -81,13 +79,13 @@ export class Patient {
     readonly diagnose: string | undefined;
 
     // undefined wegen Updates
-    @OneToOne(() => Name, (name) => name.Patient, {
+    @OneToOne(() => Name, (name) => name.patient, {
         cascade: ['insert', 'remove'],
     })
     readonly name: Name | undefined;
 
     // undefined wegen Updates
-    @OneToMany(() => Operation, (operation) => operation.Patient, {
+    @OneToMany(() => Operation, (operation) => operation.patient, {
         cascade: ['insert', 'remove'],
     })
     readonly operationen: Operation[] | undefined;
