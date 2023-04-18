@@ -31,7 +31,7 @@ package patient.entity {
         @Column() readonly versichertennummer: number
         @Column() readonly versicherungsart: PatientVersicherungsart
         @Column() readonly versicherug: Versicherung
-        @Column() readonly geschlecht: Geschlecht
+        @Column() readonly name: Name
         @Column() readonly geburtsdatum: Date
         @Column() readonly intensiv: boolean
         @Column() readonly diagnose?: string
