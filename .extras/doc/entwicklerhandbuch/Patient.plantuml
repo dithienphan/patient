@@ -2,6 +2,9 @@
 '
 ' Zusaetzliches Attribut
 ' @Column() readonly versicherug: Versicherung
+'
+' Das gehört doch auch net rein?:
+' @Column() readonly name: Name
 
 @startuml Entity
 
@@ -33,7 +36,6 @@ package patient.entity {
         @Column() readonly version: number
         @Column() readonly versichertennummer: number
         @Column() readonly versicherungsart: PatientVersicherungsart
-        @Column() readonly name: Name
         @Column() readonly geburtsdatum: Date
         @Column() readonly intensiv: boolean
         @Column() readonly diagnose?: string
