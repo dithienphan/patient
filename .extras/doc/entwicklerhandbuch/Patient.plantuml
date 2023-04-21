@@ -49,8 +49,8 @@ package patient.entity {
 
     class Operation <<entity>> <<@Entity>> {
         @Column() @PrimaryColumn() readonly id: number
-        @Column() readonly operationsTyp: string
-        @Column() readonly datum?: Date
+        @Column() readonly eingriff: string
+        @Column() readonly behandlungsraum?: int
     }
 }
 
