@@ -62,7 +62,7 @@ export class Patient {
     readonly versichertennummer!: string;
 
     @Column('varchar', { length: 11 })
-    @ApiProperty({ example: 'GESETZLICHE', type: String })
+    @ApiProperty({ example: 'GESETZLICH', type: String })
     readonly art: PatientVersicherungsart | undefined;
 
     // das Temporal-API ab ES2022 wird von TypeORM noch nicht unterstuetzt

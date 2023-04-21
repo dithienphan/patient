@@ -25,7 +25,7 @@ package typeorm {
 }
 
 package patient.entity {
-    class "type PatientVersicherungsart = 'GESETZLICHE' | 'PRIVATE'" as PatientVersicherungsart
+    class "type PatientVersicherungsart = 'GESETZLICH' | 'PRIVAT'" as PatientVersicherungsart
   hide PatientVersicherungsart circle
     
     class Patient <<entity>> <<@Entity>> {
