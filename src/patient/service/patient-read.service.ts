@@ -28,6 +28,7 @@ export interface Suchkriterien {
  */
 export class PatientReadService {
     async findById({ id, mitOperationen = false }: FindByIdParams) {
-        // Warten auf Logger
+        // TODO Logger
+        //TODO query-builder
     }
 }
