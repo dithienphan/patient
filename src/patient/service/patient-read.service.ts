@@ -1,4 +1,4 @@
-import { PatientVersicherungsart } from "../entity/patient.entity";
+import { PatientVersicherungsart } from '../entity/patient.entity';
 
 /**
  * Typdefinition für `findById`

@@ -11,8 +11,13 @@ import { hostname } from 'node:os';
 import { k8sConfig } from './kubernetes.js';
 import { resolve } from 'node:path';
 
-const { NODE_ENV, PORT, PATIENT_SERVICE_HOST, PATIENT_SERVICE_PORT, LOG_DEFAULT } =
-    env;
+const {
+    NODE_ENV,
+    PORT,
+    PATIENT_SERVICE_HOST,
+    PATIENT_SERVICE_PORT,
+    LOG_DEFAULT,
+} = env;
 
 const computername = hostname();
 let port = Number.NaN;
