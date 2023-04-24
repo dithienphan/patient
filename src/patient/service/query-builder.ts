@@ -4,6 +4,7 @@ import { Name } from '../entity/name.entity.js';
 import { Operation } from '../entity/operation.entity.js';
 import { Patient } from '../entity/patient.entity.js';
 import { Repository } from 'typeorm';
+import { getLogger } from '../../logger/logger.js';
 import { typeOrmModuleOptions } from '../../config/db.js';
 
 /** Typdefinitionen für die Suche mit der Patient-ID. */
@@ -33,7 +34,7 @@ export class QueryBuilder {
 
     readonly #repo: Repository<Patient>;
 
-    //TODO logger
+    readonly #logger = getLogger(QueryBuilder.name);
 
     constructor(@InjectRepository(Patient) repo: Repository<Patient>) {
         this.#repo = repo;
@@ -65,9 +66,8 @@ export class QueryBuilder {
      * @param suchkriterien JSON-Objekt mit Suchkriterien
      * @returns QueryBuilder
      */
-    // eslint-disable-next-line max-lines-per-function
     build(suchkriterien: Record<string, any>) {
-        //TODO logger
+        this.#logger.debug('build: suchkriterien=%o', suchkriterien);
 
         let queryBuilder = this.#repo.createQueryBuilder(this.#patientAlias);
         queryBuilder.innerJoinAndSelect(`${this.#patientAlias}.name`, 'name');
@@ -106,7 +106,7 @@ export class QueryBuilder {
             useWhere = false;
         });
 
-        //TODO logger
+        this.#logger.debug('build: sql=%s', queryBuilder.getSql());
         return queryBuilder;
     }
 }
