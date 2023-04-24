@@ -1,0 +1,96 @@
+# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# siehe app.module.ts
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Funktionen, um Bücherdaten zu lesen"
+type Query {
+  patienten(titel: String): [Patient!]
+
+  patient(id: ID!): Patient
+}
+
+"Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
+type Mutation {
+  create(input: PatientInput!): String
+
+  update(input: PatientUpdateInput!): Int
+
+  delete(id: ID!): Boolean
+}
+
+"Daten zum Titel eines Patienten"
+type Titel {
+  titel: String!
+  untertitel: String
+}
+
+"Datenschema zu einem Patienten, das gelesen wird"
+type Buch {
+  id: ID!
+  version: Int!
+  versichertennummer: String!
+  rating: Int
+  versicherungsart: Versicherungsart
+  intensiv: Boolean
+  geburtsdatum: String
+  diagnose: [String]
+  titel: Titel!
+}
+
+"Enum-Typ für die Art eines Buches"
+enum Versicherungsart {
+  DRUCKAUSGABE
+  KINDLE
+}
+
+"Daten zum Titel eines neuen Buches"
+input TitelInput {
+  titel: String!
+  untertitel: String
+}
+
+"Daten zu den Operationen eines Patienten"
+input OperationInput {
+  eingriff: String!
+  contentType: String!
+}
+
+"Daten für einen neuen Patienten"
+input BuchInput {
+  versichertennummer: String
+  versicherungsart: Versicherungsart
+  intensiv: Boolean
+  geburtsdatum: String
+  diagnose: [String]
+  titel: TitelInput!
+  operationen: [OperationInput!]
+}
+
+"Daten für einen zu ändernden Patienten"
+input BuchUpdateInput {
+  id: ID
+  version: Int
+  versichertennummer: String
+  versicherungsart: Versicherungsart
+  intensiv: Boolean
+  geburtsdatum: String
+  diagnose: [String]
+}
