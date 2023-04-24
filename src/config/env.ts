@@ -19,8 +19,8 @@ const {
     // - `test`
     NODE_ENV,
     PORT,
-    BUCH_SERVICE_HOST,
-    BUCH_SERVICE_PORT,
+    PATIENT_SERVICE_HOST,
+    PATIENT_SERVICE_PORT,
     K8S_TLS,
     DB_TYPE,
     DB_NAME,
@@ -62,8 +62,8 @@ export const env = {
     // - `test`
     NODE_ENV,
     PORT,
-    BUCH_SERVICE_HOST,
-    BUCH_SERVICE_PORT,
+    PATIENT_SERVICE_HOST,
+    PATIENT_SERVICE_PORT,
     K8S_TLS,
     DB_TYPE,
     DB_NAME,

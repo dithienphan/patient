@@ -4,7 +4,7 @@ import { PatientVersicherungsart } from "../entity/patient.entity";
  * Typdefinition für `findById`
  */
 export interface FindByIdParams {
-    /** ID des gesuchten Buchs */
+    /** ID des gesuchten Patienten */
     id: number;
     /** Sollen die Operationen mitgeladen werden? */
     mitOperationen?: boolean;

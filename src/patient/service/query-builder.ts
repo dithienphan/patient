@@ -6,9 +6,9 @@ import { Patient } from '../entity/patient.entity.js';
 import { Repository } from 'typeorm';
 import { typeOrmModuleOptions } from '../../config/db.js';
 
-/** Typdefinitionen für die Suche mit der Buch-ID. */
+/** Typdefinitionen für die Suche mit der Patient-ID. */
 export interface BuildIdParams {
-    /** ID des gesuchten Buchs. */
+    /** ID des gesuchten Patienten. */
     id: number;
     /** Sollen die Abbildungen mitgeladen werden? */
     mitOperationen?: boolean;
