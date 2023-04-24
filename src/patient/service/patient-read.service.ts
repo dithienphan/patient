@@ -14,7 +14,7 @@ export interface FindByIdParams {
  */
 // TODO gehört 'name' hier rein?
 export interface Suchkriterien {
-    readonly versichertennummer?: number;
+    readonly versichertennummer?: string;
     readonly versicherungsart?: PatientVersicherungsart;
     readonly geburtsdatum?: Date;
     readonly intensiv?: boolean;
