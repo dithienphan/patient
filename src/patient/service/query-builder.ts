@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { getLogger } from '../../logger/logger.js';
 import { typeOrmModuleOptions } from '../../config/db.js';
 
-/** Typdefinitionen für die Suche mit der Patient-ID. */
+/** Typdefinitionen für die Suche mit der Patienten-ID. */
 export interface BuildIdParams {
     /** ID des gesuchten Patienten. */
     id: number;
@@ -53,7 +53,7 @@ export class QueryBuilder {
         );
         if (mitOperationen) {
             queryBuilder.leftJoinAndSelect(
-                `${this.#patientAlias}.abbildungen`,
+                `${this.#patientAlias}.operationen`,
                 this.#operationAlias,
             );
         }
