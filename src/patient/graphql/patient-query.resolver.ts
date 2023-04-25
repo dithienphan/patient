@@ -22,7 +22,10 @@ import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.
 import { UseInterceptors } from '@nestjs/common';
 import { getLogger } from '../../logger/logger.js';
 
-export type PatientDTO = Omit<Patient, 'operationen' | 'aktualisiert' | 'erzeugt'>;
+export type PatientDTO = Omit<
+    Patient,
+    'operationen' | 'aktualisiert' | 'erzeugt'
+>;
 export interface IdInput {
     id: number;
 }
@@ -65,7 +68,9 @@ export class PatientQueryResolver {
             throw new BadUserInputError('Es wurden keine B gefunden.');
         }
 
-        const patientenDTO = patienten.map((patient) => this.#toPatientDTO(patient));
+        const patientenDTO = patienten.map((patient) =>
+            this.#toPatientDTO(patient),
+        );
         this.#logger.debug('find: patientenDTO=%o', patientenDTO);
         return patientenDTO;
     }
