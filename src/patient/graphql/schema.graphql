@@ -55,7 +55,7 @@ type Buch {
   titel: Titel!
 }
 
-"Enum-Typ für die Art eines Buches"
+"Enum-Typ für die Versicherungsart eines Buches"
 enum Versicherungsart {
   DRUCKAUSGABE
   KINDLE

@@ -384,7 +384,7 @@ In der Sandbox kann man z.B. folgende Query absetzen:
 {
   patient(id: "000000000000000000000001") {
     titel
-    art
+    versicherungsart
     isbn
     version
   }
@@ -397,7 +397,7 @@ Oder unter Verwendung von einer Variablen (hier: `patientId`):
 query ($patientId: ID!) {
   patient(id: $patientId) {
     titel
-    art
+    versicherungsart
     isbn
     version
   }

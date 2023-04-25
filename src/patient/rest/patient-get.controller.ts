@@ -295,7 +295,7 @@ export class PatientGetController {
         /* eslint-disable unicorn/consistent-destructuring */
         const patientModel: PatientModel = {
             versichertennummer: patient.versichertennummer,
-            art: patient.art,
+            versicherungsart: patient.versicherungsart,
             intensiv: patient.intensiv,
             geburtsdatum: patient.geburtsdatum,
             diagnose: patient.diagnose,

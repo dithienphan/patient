@@ -38,7 +38,7 @@ import { Operation } from './operation.entity.js';
 import { dbType } from '../../config/dbtype.js';
 
 /**
- * Alias-Typ für gültige Strings bei der Art eines Patientes.
+ * Alias-Typ für gültige Strings bei der Versicherungsart eines Patientes.
  */
 export type PatientVersicherungsart = 'GESETZLICHE' | 'PRIVATE';
 
@@ -63,7 +63,7 @@ export class Patient {
 
     @Column('varchar', { length: 11 })
     @ApiProperty({ example: 'GESETZLICH', type: String })
-    readonly art: PatientVersicherungsart | undefined;
+    readonly versicherungsart: PatientVersicherungsart | undefined;
 
     // das Temporal-API ab ES2022 wird von TypeORM noch nicht unterstuetzt
     @Column('date')
