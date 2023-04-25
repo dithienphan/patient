@@ -29,7 +29,7 @@ export class PatientDtoOhneRef {
     @Matches(/^GESETZLICH$|^PRIVAT$/u)
     @IsOptional()
     @ApiProperty({ example: 'GESETZLICH', type: String })
-    readonly art: PatientVersicherungsart | undefined;
+    readonly versicherungsart: PatientVersicherungsart | undefined;
 
     @IsISO8601({ strict: true })
     @IsOptional()
