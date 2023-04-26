@@ -253,7 +253,7 @@ services:
   # b u c h
   # ------------------------------------------------------------------------------------
   patient:
-    image: juergenzimmermann/patient:2023.1.0
+    image: gruppe7/patient:2023.1.0
     ports:
       - published: 3000
         target: 3000

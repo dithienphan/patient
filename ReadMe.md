@@ -524,7 +524,7 @@ Mittels _(Cloud Native) Buildpacks_ und der Konfigurationsdatei `project.toml`
 kann man ein Docker Image erstellen, ohne dass ein Dockerfile erforderlich ist.
 Das resultierende Image basiert auf _Ubuntu_ und erfordert, dass die
 TypeScript-Dateien in JavaScript übersetzt sind. Durch das npm-Skript `pack`
-wird das Docker-Image `docker.io/juergenzimmermann/patient:2023.1.0` mit dem implizit
+wird das Docker-Image `docker.io/gruppe7/patient:2023.1.0` mit dem implizit
 übersetzten JavaScript-Code gebaut:
 
 ```powershell
@@ -536,7 +536,7 @@ Wie das Docker-Image gebaut wurde, kann man anschließend mit folgendem Kommando
 inspizieren:
 
 ```powershell
-    pack inspect juergenzimmermann/patient:2023.1.0
+    pack inspect gruppe7/patient:2023.1.0
 ```
 
 ### Deployment mit Helm
@@ -671,10 +671,10 @@ das `Dockerfile` gibt, um ein solches Image zu erstellen:
 ```powershell
     cd .extras\jenkins
     Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:2.10.0-beta-debian
-    docker buildx build --tag juergenzimmermann/jenkins:2023.1.0 .
+    docker buildx build --tag gruppe7/jenkins:2023.1.0 .
 ```
 
-Das neu gebaute Image `juergenzimmermann/jenkins:2023.1.0` wird in
+Das neu gebaute Image `gruppe7/jenkins:2023.1.0` wird in
 `docker-compose.yaml` verwendet:
 
 ```powershell

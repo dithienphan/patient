@@ -34,7 +34,7 @@ package patient.entity {
     class Patient <<entity>> <<@Entity>> {
         @Column() @PrimaryColumn() readonly id: number
         @Column() readonly version: number
-        @Column() readonly versichertennummer: number
+        @Column() readonly versichertennummer: string
         @Column() readonly versicherungsart: PatientVersicherungsart
         @Column() readonly geburtsdatum: Date
         @Column() readonly intensiv: boolean

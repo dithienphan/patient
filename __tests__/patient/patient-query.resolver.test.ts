@@ -21,11 +21,11 @@ export type GraphQLResponseBody = Pick<GraphQLResponse, 'data' | 'errors'>;
 // -----------------------------------------------------------------------------
 const idVorhanden = '1';
 
-const titelVorhanden = 'Alpha';
+const nameVorhanden = 'Hera';
 
-const teilTitelVorhanden = 'a';
+const teilNameVorhanden = 'a';
 
-const teilTitelNichtVorhanden = 'abc';
+const teilNameNichtVorhanden = 'abc';
 
 // -----------------------------------------------------------------------------
 // T e s t s
@@ -57,10 +57,10 @@ describe('GraphQL Queries', () => {
                 {
                     patient(id: "${idVorhanden}") {
                         version
-                        isbn
-                        art
-                        titel {
-                            titel
+                        versichertennummer
+                        versicherungsart
+                        name {
+                            nachname
                         }
                     }
                 }
@@ -84,7 +84,7 @@ describe('GraphQL Queries', () => {
         const { patient } = data.data!;
         const result: PatientDTO = patient;
 
-        expect(result.titel?.titel).toMatch(/^\w/u);
+        expect(result.name?.nachname).toMatch(/^\w/u);
         expect(result.version).toBeGreaterThan(-1);
         expect(result.id).toBeUndefined();
     });
@@ -96,8 +96,8 @@ describe('GraphQL Queries', () => {
             query: `
                 {
                     patient(id: "${id}") {
-                        titel {
-                            titel
+                        name {
+                            nachname
                         }
                     }
                 }
@@ -131,15 +131,15 @@ describe('GraphQL Queries', () => {
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
 
-    test('Patient zu vorhandenem Titel', async () => {
+    test('Patient zu vorhandenem Namen', async () => {
         // given
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(titel: "${titelVorhanden}") {
-                        art
-                        titel {
-                            titel
+                    patienten(name: "${nameVorhanden}") {
+                        versicherungsart
+                        name {
+                            nachname
                         }
                     }
                 }
@@ -171,18 +171,18 @@ describe('GraphQL Queries', () => {
 
         const [patient] = patientenArray;
 
-        expect(patient!.titel?.titel).toBe(titelVorhanden);
+        expect(patient!.name?.nachname).toBe(nameVorhanden);
     });
 
-    test('Patient zu vorhandenem Teil-Titel', async () => {
+    test('Patient zu vorhandenem Teil-Namen', async () => {
         // given
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(titel: "${teilTitelVorhanden}") {
-                        art
-                        titel {
-                            titel
+                    patienten(name: "${teilNameVorhanden}") {
+                        versicherungsart
+                        name {
+                            nachname
                         }
                     }
                 }
@@ -209,23 +209,23 @@ describe('GraphQL Queries', () => {
 
         const patientenArray: PatientDTO[] = patienten;
         patientenArray
-            .map((patient) => patient.titel)
-            .forEach((titel) =>
-                expect(titel?.titel.toLowerCase()).toEqual(
-                    expect.stringContaining(teilTitelVorhanden),
+            .map((patient) => patient.name)
+            .forEach((name) =>
+                expect(name?.nachname.toLowerCase()).toEqual(
+                    expect.stringContaining(teilNameVorhanden),
                 ),
             );
     });
 
-    test('Patient zu nicht vorhandenem Titel', async () => {
+    test('Patient zu nicht vorhandenem Namen', async () => {
         // given
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(titel: "${teilTitelNichtVorhanden}") {
-                        art
-                        titel {
-                            titel
+                    patienten(name: "${teilNameNichtVorhanden}") {
+                        versicherungsart
+                        name {
+                            nachname
                         }
                     }
                 }

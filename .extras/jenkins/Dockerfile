@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker buildx build --tag juergenzimmermann/jenkins:2023.1.0 .
+# Aufruf:   docker buildx build --tag gruppe7/jenkins:2023.1.0 .
 #           Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
-#           docker sbom juergenzimmermann/jenkins:2023.1.0
+#           docker sbom gruppe7/jenkins:2023.1.0
 
 # https://www.jenkins.io/doc/book/installing/docker
 # https://manpages.debian.org/bullseye/apt/apt-get.8.en.html

@@ -77,7 +77,7 @@ pipeline {
 
                 // https://www.jenkins.io/doc/pipeline/steps/git
                 // "named arguments" statt Funktionsaufruf mit Klammern
-                git url: 'https://github.com/juergenzimmermann/patient', branch: 'main', poll: true
+                git url: 'https://github.com/gruppe7/patient', branch: 'main', poll: true
             }
         }
 
@@ -217,7 +217,7 @@ pipeline {
             steps {
               echo 'TODO: Docker-Image bauen: dockerd starten, pack installieren'
               // Docker-Installation und laufender Docker-Daemon erforderlich
-              // sh 'docker build --tag juergenzimmermann/patient:1.0.0 .'
+              // sh 'docker build --tag gruppe7/patient:1.0.0 .'
             }
         }
 
