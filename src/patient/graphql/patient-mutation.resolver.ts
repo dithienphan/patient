@@ -111,10 +111,10 @@ export class PatientMutationResolver {
     }
 
     #patientDtoToPatient(patientDTO: PatientDTO): Patient {
-        const nameDTO = patientDTO.name;
-        const name: Name = {
+        const titelDTO = patientDTO.name;
+        const titel: Name = {
             id: undefined,
-            name: nameDTO.name,
+            titel: titelDTO.titel,
             patient: undefined,
         };
         const operation = patientDTO.operationen?.map((operationDTO) => {
@@ -140,7 +140,7 @@ export class PatientMutationResolver {
         };
 
         // Rueckwaertsverweis
-        patient.name.patient = patient;
+        patient.titel.patient = patient;
         return patient;
     }
 
@@ -165,7 +165,7 @@ export class PatientMutationResolver {
     #errorMsgCreatePatient(err: CreateError) {
         switch (err.type) {
             case 'versichertennummerExists': {
-                return `Die Versichertennummer ${err.isbn} existiert bereits`;
+                return `Die Versichertennummer ${err.versichertennummer} existiert bereits`;
             }
             default: {
                 return 'Unbekannter Fehler';
