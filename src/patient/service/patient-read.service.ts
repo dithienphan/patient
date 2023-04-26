@@ -87,6 +87,11 @@ export class PatientReadService {
             return patienten;
         }
 
+        // Falsche Namen fuer Suchkriterien?
+        if (!this.#checkKeys(keys)) {
+            return [];
+        }
+
         // Das Resultat ist eine leere Liste, falls nichts gefunden
         const patienten = await this.#queryBuilder
             .build(suchkriterien)
@@ -94,5 +99,21 @@ export class PatientReadService {
         this.#logger.debug('find: patienten=%o', patienten);
 
         return patienten;
+    }
+
+    #checkKeys(keys: string[]) {
+        // Ist jedes Suchkriterium auch eine Property von Patient?
+        let validKeys = true;
+        keys.forEach((key) => {
+            if (!this.#patientProps.includes(key)) {
+                this.#logger.debug(
+                    '#find: ungueltiges Suchkriterium "%s"',
+                    key,
+                );
+                validKeys = false;
+            }
+        });
+
+        return validKeys;
     }
 }
