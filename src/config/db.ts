@@ -2,8 +2,8 @@
  * Das Modul enthält die Konfiguration für den Zugriff auf die DB.
  * @packageDocumentation
  */
-import { Patient } from '../patient/entity/patient.entity.js';
 import { type DataSourceOptions } from 'typeorm';
+import { Patient } from '../patient/entity/patient.entity.js';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { type TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { dbType } from './dbtype.js';
