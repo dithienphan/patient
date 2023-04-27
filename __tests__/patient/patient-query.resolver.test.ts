@@ -124,7 +124,9 @@ describe('GraphQL Queries', () => {
         const [error] = errors!;
         const { message, path, extensions } = error!;
 
-        expect(message).toBe(`Es wurde kein Patient mit der ID ${id} gefunden.`);
+        expect(message).toBe(
+            `Es wurde kein Patient mit der ID ${id} gefunden.`,
+        );
         expect(path).toBeDefined();
         expect(path!![0]).toBe('patient');
         expect(extensions).toBeDefined();

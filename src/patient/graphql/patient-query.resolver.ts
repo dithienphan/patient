@@ -24,7 +24,7 @@ import { getLogger } from '../../logger/logger.js';
 
 export type PatientDTO = Omit<
     Patient,
-    'operationen' | 'aktualisiert' | 'erzeugt'
+    'aktualisiert' | 'erzeugt' | 'operationen'
 >;
 export interface IdInput {
     id: number;
@@ -59,10 +59,10 @@ export class PatientQueryResolver {
     }
 
     @Query()
-    async patienten(@Args() titel: { titel: string } | undefined) {
-        const titelStr = titel?.titel;
-        this.#logger.debug('find: titel=%s', titelStr);
-        const suchkriterium = titelStr === undefined ? {} : { titel: titelStr };
+    async patienten(@Args() name: { name: string } | undefined) {
+        const nameStr = name?.name;
+        this.#logger.debug('find: name=%s', nameStr);
+        const suchkriterium = nameStr === undefined ? {} : { name: nameStr };
         const patienten = await this.#service.find(suchkriterium);
         if (patienten.length === 0) {
             throw new BadUserInputError('Es wurden keine B gefunden.');

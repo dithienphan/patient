@@ -19,17 +19,16 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { type CreateError, type UpdateError } from '../service/errors.js';
 import { IsInt, IsNumberString, Min } from 'class-validator';
 import { UseGuards, UseInterceptors } from '@nestjs/common';
-import { Operation } from '../entity/operation.entity.js';
 import { BadUserInputError } from './errors.js';
+import { JwtAuthGraphQlGuard } from '../../security/auth/jwt/jwt-auth-graphql.guard.js';
+import { type Name } from '../entity/name.entity.js';
+import { Operation } from '../entity/operation.entity.js';
 import { Patient } from '../entity/patient.entity.js';
 import { PatientDTO } from '../rest/patientDTO.entity.js';
 import { PatientWriteService } from '../service/patient-write.service.js';
-import { type IdInput } from './patient-query.resolver.js';
-import { JwtAuthGraphQlGuard } from '../../security/auth/jwt/jwt-auth-graphql.guard.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.js';
 import { RolesGraphQlGuard } from '../../security/auth/roles/roles-graphql.guard.js';
-import { type Name } from '../entity/name.entity.js';
 import { getLogger } from '../../logger/logger.js';
 
 // Authentifizierung und Autorisierung durch
@@ -64,7 +63,7 @@ export class PatientMutationResolver {
     }
 
     @Mutation()
-    @RolesAllowed('admin', 'mitarbeiter')
+    @RolesAllowed('arzt', 'rezeptionist')
     async create(@Args('input') patientDTO: PatientDTO) {
         this.#logger.debug('create: patientDTO=%o', patientDTO);
 
@@ -81,7 +80,7 @@ export class PatientMutationResolver {
     }
 
     @Mutation()
-    @RolesAllowed('admin', 'mitarbeiter')
+    @RolesAllowed('arzt', 'rezeptionist')
     async update(@Args('input') patientDTO: PatientUpdateDTO) {
         this.#logger.debug('update: patient=%o', patientDTO);
 
@@ -100,28 +99,19 @@ export class PatientMutationResolver {
         return result;
     }
 
-    @Mutation()
-    @RolesAllowed('admin')
-    async delete(@Args() id: IdInput) {
-        const idStr = id.id;
-        this.#logger.debug('delete: id=%s', idStr);
-        const result = await this.#service.delete(idStr);
-        this.#logger.debug('deletePatient: result=%s', result);
-        return result;
-    }
-
     #patientDtoToPatient(patientDTO: PatientDTO): Patient {
-        const titelDTO = patientDTO.name;
-        const titel: Name = {
+        const nameDTO = patientDTO.name;
+        const name: Name = {
             id: undefined,
-            titel: titelDTO.titel,
+            nachname: nameDTO.nachname,
+            vorname: nameDTO.vorname,
             patient: undefined,
         };
-        const operation = patientDTO.operationen?.map((operationDTO) => {
+        const operationen = patientDTO.operationen?.map((operationDTO) => {
             const operation: Operation = {
                 id: undefined,
                 eingriff: operationDTO.eingriff,
-                contentType: operationDTO.contentType,
+                behandlungsraum: operationDTO.behandlungsraum,
                 patient: undefined,
             };
             return operation;
@@ -134,20 +124,19 @@ export class PatientMutationResolver {
             geburtsdatum: patientDTO.geburtsdatum,
             intensiv: patientDTO.intensiv,
             diagnose: patientDTO.diagnose,
-            name: undefined,
+            name,
             erzeugt: undefined,
             aktualisiert: undefined,
+            operationen,
         };
 
         // Rueckwaertsverweis
-        patient.titel.patient = patient;
+        patient.name.patient = patient;
         return patient;
     }
 
     #patientUpdateDtoToPatient(patientDTO: PatientUpdateDTO): Patient {
         return {
-            id: undefined,
-            version: undefined,
             id: undefined,
             version: undefined,
             versichertennummer: patientDTO.versichertennummer,
@@ -164,7 +153,7 @@ export class PatientMutationResolver {
 
     #errorMsgCreatePatient(err: CreateError) {
         switch (err.type) {
-            case 'versichertennummerExists': {
+            case 'VersichertennummerExists': {
                 return `Die Versichertennummer ${err.versichertennummer} existiert bereits`;
             }
             default: {
