@@ -15,10 +15,10 @@ export class Name {
     id: number | undefined;
 
     @Column('varchar', { length: 32 })
-    readonly nachname!: string | undefined;
+    readonly nachname!: string;
 
     @Column('varchar', { length: 32 })
-    readonly vorname!: string | undefined;
+    readonly vorname!: string;
 
     @OneToOne(() => Patient, (patient) => patient.name)
     @JoinColumn({ name: 'patient_id' })
