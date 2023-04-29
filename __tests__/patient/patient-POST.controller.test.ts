@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -12,50 +29,59 @@ import { PatientReadService } from '../../src/patient/service/patient-read.servi
 import { HttpStatus } from '@nestjs/common';
 import { loginRest } from '../login.js';
 
-// TODO ESLINT beruhigen, break zur Mittagspause
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
-const neuerPatient: PatientDTO = {
-  versichertennummer: 'H789123456',
-  versicherungsart: 'GESETZLICH',
-  intensiv: false,
-  geburtsdatum: '2000-01-01',
-  diagnose: 'schreckliches Gejammer',
-  name: {
-        nachname: 'Nachnamepost',
-        vorname: 'vornamepost',
+const neuesPatient: PatientDTO = {
+    isbn: '978-0-007-00644-1',
+    rating: 1,
+    art: 'DRUCKAUSGABE',
+    preis: 99.99,
+    rabatt: 0.123,
+    lieferbar: true,
+    datum: '2022-02-28',
+    homepage: 'https://post.rest',
+    schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+    titel: {
+        titel: 'Titelpost',
+        untertitel: 'untertitelpos',
     },
-	operationen: [
-		{
-			eingriff: 'troesten',
-			behandlungsraum: 201,
-		},
-	],
+    abbildungen: [
+        {
+            beschriftung: 'Abb. 1',
+            contentType: 'img/png',
+        },
+    ],
 };
-const neuerPatientInvalid: Record<string, unknown> = {
-  versichertennummer: 'viel-zu-lange-nummer',
-  versicherungsart: 'FANTASIA',
-  intensiv: false,
-  geburtsdatum: '12345-123-123',
-  diagnose: 'schreckliches Gejammer',
-  name: {
-        nachname: '?!',
-        vorname: 'PatientInvalid',
+const neuesPatientInvalid: Record<string, unknown> = {
+    isbn: 'falsche-ISBN',
+    rating: -1,
+    art: 'UNSICHTBAR',
+    preis: -1,
+    rabatt: 2,
+    lieferbar: true,
+    datum: '12345-123-123',
+    homepage: 'anyHomepage',
+    titel: {
+        titel: '?!',
+        untertitel: 'Untertitelinvalid',
     },
 };
-const neuerPatientVersichertennummerExistiert: PatientDTO = {
-  versichertennummer: 'A123456789',
-  versicherungsart: 'PRIVAT',
-  intensiv: false,
-  geburtsdatum: '2005-01-01',
-  diagnose: 'deja-vu',
-  name: {
-        nachname: 'Nachnamepostexists',
-        vorname: 'vornamepostexists',
+const neuesPatientIsbnExistiert: PatientDTO = {
+    isbn: '978-3-897-22583-1',
+    rating: 1,
+    art: 'DRUCKAUSGABE',
+    preis: 99.99,
+    rabatt: 0.099,
+    lieferbar: true,
+    datum: '2022-02-28',
+    homepage: 'https://post.isbn/',
+    schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+    titel: {
+        titel: 'Titelpostisbn',
+        untertitel: 'Untertitelpostisbn',
     },
-
-    operationen: undefined,
+    abbildungen: undefined,
 };
 
 // -----------------------------------------------------------------------------
@@ -84,7 +110,7 @@ describe('POST /rest', () => {
         await shutdownServer();
     });
 
-    test('Neuer Patient', async () => {
+    test('Neues Patient', async () => {
         // given
         const token = await loginRest(client);
         headers.Authorization = `Bearer ${token}`;
@@ -92,7 +118,7 @@ describe('POST /rest', () => {
         // when
         const response: AxiosResponse<string> = await client.post(
             '/rest',
-            neuerPatient,
+            neuesPatient,
             { headers },
         );
 
@@ -118,7 +144,7 @@ describe('POST /rest', () => {
         expect(data).toBe('');
     });
 
-    test('Neuer Patient mit ungueltigen Daten', async () => {
+    test('Neues Patient mit ungueltigen Daten', async () => {
         // given
         const token = await loginRest(client);
         headers.Authorization = `Bearer ${token}`;
@@ -136,7 +162,7 @@ describe('POST /rest', () => {
         // when
         const response: AxiosResponse<Record<string, any>> = await client.post(
             '/rest',
-            neuerPatientInvalid,
+            neuesPatientInvalid,
             { headers },
         );
 
@@ -153,7 +179,7 @@ describe('POST /rest', () => {
         expect(messages).toEqual(expect.arrayContaining(expectedMsg));
     });
 
-    test('Neuer Patient, aber die ISBN existiert bereits', async () => {
+    test('Neues Patient, aber die ISBN existiert bereits', async () => {
         // given
         const token = await loginRest(client);
         headers.Authorization = `Bearer ${token}`;
@@ -161,7 +187,7 @@ describe('POST /rest', () => {
         // when
         const response: AxiosResponse<string> = await client.post(
             '/rest',
-            neuerPatientVersichertennummerExistiert,
+            neuesPatientIsbnExistiert,
             { headers },
         );
 
@@ -172,11 +198,11 @@ describe('POST /rest', () => {
         expect(data).toEqual(expect.stringContaining('ISBN'));
     });
 
-    test('Neuer Patient, aber ohne Token', async () => {
+    test('Neues Patient, aber ohne Token', async () => {
         // when
         const response: AxiosResponse<Record<string, any>> = await client.post(
             '/rest',
-            neuerPatient,
+            neuesPatient,
         );
 
         // then
@@ -186,7 +212,7 @@ describe('POST /rest', () => {
         expect(data.statusCode).toBe(HttpStatus.FORBIDDEN);
     });
 
-    test('Neuer Patient, aber mit falschem Token', async () => {
+    test('Neues Patient, aber mit falschem Token', async () => {
         // given
         const token = 'FALSCH';
         headers.Authorization = `Bearer ${token}`;
@@ -194,7 +220,7 @@ describe('POST /rest', () => {
         // when
         const response: AxiosResponse<Record<string, any>> = await client.post(
             '/rest',
-            neuerPatient,
+            neuesPatient,
             { headers },
         );
 
