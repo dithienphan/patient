@@ -1,3 +1,5 @@
+// TODO sollte Zeile 3 eher lauten?
+// import { Patient, type PatientVersicherungsart } from '../entity/patient.entity';
 import { Patient, PatientVersicherungsart } from '../entity/patient.entity';
 import { Injectable } from '@nestjs/common';
 import { QueryBuilder } from './query-builder.js';
@@ -62,7 +64,7 @@ export class PatientReadService {
             this.#logger.debug('findById: Kein Patienten gefunden');
             return;
         }
-        this.#logger.debug('findById: buch=%o', patient);
+        this.#logger.debug('findById: patient=%o', patient);
         return patient;
     }
 
