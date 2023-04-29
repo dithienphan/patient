@@ -40,7 +40,7 @@ import { dbType } from '../../config/dbtype.js';
 /**
  * Alias-Typ für gültige Strings bei der Versicherungsart eines Patientes.
  */
-export type PatientVersicherungsart = 'GESETZLICHE' | 'PRIVATE';
+export type PatientVersicherungsart = 'GESETZLICH' | 'PRIVAT';
 
 /**
  * Entity-Klasse zu einem relationalen Tabelle
