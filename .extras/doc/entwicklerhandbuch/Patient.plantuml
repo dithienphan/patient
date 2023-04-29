@@ -1,10 +1,4 @@
 ' Preview durch <Alt>d
-'
-' Zusaetzliches Attribut
-' @Column() readonly versicherug: Versicherung
-'
-' Das gehört doch auch net rein?:
-' @Column() readonly name: Name
 
 @startuml Entity
 

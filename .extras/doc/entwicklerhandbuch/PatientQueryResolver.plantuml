@@ -1,0 +1,65 @@
+' Preview durch <Alt>d
+
+@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/graphql {
+  class "@Resolver" as Resolver
+  hide Resolver circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
+
+  class "@Query" as Query
+  hide Query circle
+
+  class "@Args" as Args
+  hide Args circle
+
+  Resolver .left[hidden].> Promise
+}
+
+package patient {
+  package entity {
+    class Patient <<entity>>
+  }
+
+  package service {
+    class PatientReadService << control >>
+  }
+
+  package graphql #DDDDDD {
+    class "type PatientDTO = Omit<Patient, 'abbildungen' | 'aktualisiert' | 'erzeugt'" as PatientDTO
+    hide PatientDTO circle
+
+    interface IdInput {
+        id: number
+    }
+
+    class PatientQueryResolver << control >> << @Resolver() >> << @UseInterceptors() >> {
+      + @Query() async patient(@Args() id: IdInput): Promise<PatientDTO>
+      + @Query() async patienten(@Args() name: string | undefined): Promise<PatientDTO[]>
+    }
+
+    PatientQueryResolver o-up-> "1" PatientReadService : service
+    PatientQueryResolver ..> PatientDTO
+    PatientQueryResolver ..> IdInput
+    PatientDTO ..> Patient
+    PatientQueryResolver ..> Resolver
+
+    PatientQueryResolver ..> Promise
+
+    PatientDTO .[hidden].> Patient
+    Patient .[hidden].> Promise
+    PatientReadService .[hidden].> Promise
+    Patient .[hidden].> Resolver
+    PatientReadService .[hidden].> Resolver
+  }
+}
+
+hide empty members
+
+footer (c) Gruppe 7
+
+@enduml
