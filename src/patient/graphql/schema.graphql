@@ -27,7 +27,7 @@ type Name {
 }
 
 "Datenschema zu einem Patienten, das gelesen wird"
-type Buch {
+type Patient {
   id: ID!
   version: Int!
   versichertennummer: String!
@@ -38,13 +38,13 @@ type Buch {
   name: Name!
 }
 
-"Enum-Typ für die Versicherungsart eines Buches"
+"Enum-Typ für die Versicherungsart eines Patienten"
 enum Versicherungsart {
   GESETLICH
   PRIVAT
 }
 
-"Daten zum Name eines neuen Buches"
+"Daten zum Name eines neuen Patienten"
 input NameInput {
   nachname: String!
   vorname: String!
@@ -57,7 +57,7 @@ input OperationInput {
 }
 
 "Daten für einen neuen Patienten"
-input BuchInput {
+input PatientInput {
   versichertennummer: String
   versicherungsart: Versicherungsart
   intensiv: Boolean
@@ -68,7 +68,7 @@ input BuchInput {
 }
 
 "Daten für einen zu ändernden Patienten"
-input BuchUpdateInput {
+input PatientUpdateInput {
   id: ID
   version: Int
   versichertennummer: String
