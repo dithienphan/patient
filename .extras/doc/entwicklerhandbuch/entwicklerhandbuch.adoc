@@ -17,7 +17,7 @@ Gruppe 7 <phdi1011@h-ka.de>
 // http://de.plantuml.com/component.html
 // https://github.com/odrotbohm/asciidoctor-plantuml
 
-IMPORTANT: Copyright (C) 2023 - present Jakob Lux, Hochschule Karlsruhe. +
+IMPORTANT: Copyright (C) 2023 - present Gruppe 7, Hochschule Karlsruhe. +
            Free use of this software is granted under the terms of the
            GNU General Public License (GPL) v3. +
            For the full text of the license, see the http://www.gnu.org/licenses/gpl-3.0.html[license] file.
@@ -48,54 +48,54 @@ include::komponenten.plantuml[]
 Representational State Transfer ist ein Paradigma für die Softwarearchitektur von verteilten Systemen, insbesondere für Webservices. REST ist eine Abstraktion der Struktur und des Verhaltens 
 des World Wide Web.
 
-."MagazinGetController" für Lesezugriffe an der REST-Schnittstelle
-[plantuml,MagazinGetController,svg]
+."PatientGetController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,PatientGetController,svg]
 ----
-include::MagazinGetController.plantuml[]
+include::PatientGetController.plantuml[]
 ----
 
 Model View Controllerist ein Muster zur Unterteilung einer Software in die drei Komponenten Datenmodell, Präsentation und Programmsteuerung. Das Muster kann sowohl als Architekturmuster als auch als Entwurfsmuster eingesetzt werden.Ziel des Musters ist ein flexibler Programmentwurf, der eine spätere Änderung oder Erweiterung erleichtert und eine Wiederverwendbarkeit der einzelnen Komponenten ermöglicht. 
 
-."MagazinWriteController" für Schreibzugriffe an der REST-Schnittstelle
-[plantuml,MagazinGetController,svg]
+."PatientWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,PatientGetController,svg]
 ----
-include::MagazinWriteController.plantuml[]
+include::PatientWriteController.plantuml[]
 ----
 
 === Die GraphQL-Schnittstelle
 
 GraphQL ist eine Datenabfragesprache, die vor allem für mobile Nutzer und deren Anforderungen entwickelt wurde und die API-Funktionsweise verbessern soll.
 
-.MagazinQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
-[plantuml,MagazinQueryResolver,svg]
+.PatientQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
+[plantuml,PatientQueryResolver,svg]
 ----
-include::MagazinQueryResolver.plantuml[]
+include::PatientQueryResolver.plantuml[]
 ----
 
 GraphQL ist eine Abfragesprache für Ihre API und eine serverseitige Laufzeit zum Ausführen von Abfragen unter Verwendung eines Typsystems, das Sie für Ihre Daten definieren.
 
-.MagazinMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
-[plantuml,MagazinMutationResolver,svg]
+.PatientMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
+[plantuml,PatientMutationResolver,svg]
 ----
-include::MagazinMutationResolver.plantuml[]
+include::PatientMutationResolver.plantuml[]
 ----
 
 === Der Anwendungskern
 
 Geschäftslogik ist im Anwendungskern
 
-."MagazinReadService" im Anwendungskern
-[plantuml,MagazinReadService,svg]
+."PatientReadService" im Anwendungskern
+[plantuml,PatientReadService,svg]
 ----
-include::MagazinReadService.plantuml[]
+include::PatientReadService.plantuml[]
 ----
 
 Im ReadService werden die Logik vom auslesen der Daten geschrieben und im Write zum 
 schreiben der Daten
-."MagazinWriteService" im Anwendungskern
-[plantuml,MagazinWriteService,svg]
+."PatientWriteService" im Anwendungskern
+[plantuml,PatientWriteService,svg]
 ----
-include::MagazinWriteService.plantuml[]
+include::PatientWriteService.plantuml[]
 ----
 
 === Klasse für Entities
@@ -103,9 +103,9 @@ include::MagazinWriteService.plantuml[]
 In der Informatik ist eine Entität ein eindeutig identifizierbares, einzelnes Informationsobjekt. Entitäten können sowohl reale Dinge oder Personen als auch abstrakte Objekte sein
 
 .Entity
-[plantuml,Magazin,svg]
+[plantuml,Patient,svg]
 ----
-include::Magazin.plantuml[]
+include::Patient.plantuml[]
 ----
 
 == Programmierrichtlinien für TypeScript und JavaScript

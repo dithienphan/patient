@@ -1,0 +1,21 @@
+' Preview durch <Alt>d
+
+@startuml Use Cases
+
+actor Gast
+actor Admin
+actor Kunde
+
+rectangle patient {
+    Gast --> (Patient suchen)
+    Admin --> (Patient suchen)
+    Admin --> (Patient anlegen)
+    Admin --> (Patient ändern)
+    Kunde --> (Patient suchen)
+    Kunde --> (Patient anlegen)
+    Kunde --> (Patient ändern)
+}
+
+footer (c) Gruppe 7
+
+@enduml

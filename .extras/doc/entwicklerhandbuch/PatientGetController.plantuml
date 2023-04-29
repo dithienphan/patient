@@ -1,0 +1,76 @@
+' Preview durch <Alt>d
+
+@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/common {
+  class "@Controller" as Controller
+  hide Controller circle
+
+  class "@Get" as Get
+  hide Get circle
+
+  class "@Req" as Req
+  hide Req circle
+
+  class "@Res" as Res
+  hide Res circle
+
+  class "@Param" as Param
+  hide Param circle
+
+  class "@Query" as Query
+  hide Query circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
+}
+
+package express {
+  class Request
+  class Response
+
+  Response .[hidden].> Controller
+}
+
+package patient {
+  package entity #FFFFFF {
+    class Patient <<entity>>
+
+    Patient .[hidden].> Promise
+    Patient .[hidden].> Request
+  }
+
+  package service {
+    class PatientReadService << control >>
+  }
+
+  package rest #DDDDDD {
+    PatientQuery -up-|> Patient
+
+    class PatientGetController << control >> << @Controller() >> << @UseGuards() >> << @UseInterceptors() >> {
+      + @Get() async findById(@Param() id: number, @Req() req: Request, @Headers() version: string, @Res() res: Response): Promise<Response<PatientModel | undefined>>
+      + @Get() async find(@Query() query: PatientQuery, @Req() req: Request,  @Res() res: Response): Promise<Response<PatientenModel | undefined>>
+    }
+
+    PatientGetController o--> "1" PatientReadService : service
+
+    PatientGetController ..> Controller
+    PatientGetController ..> Request
+    PatientGetController ..> Response
+    PatientGetController ..> Promise
+    PatientGetController .up.> PatientModel
+    PatientGetController .up.> PatientQuery
+
+    PatientReadService .[hidden].> Request
+    PatientReadService .[hidden].> Promise
+    Response .right[hidden].> Controller
+  }
+}
+
+hide empty members
+
+footer (c) Gruppe 7
+
+@enduml
