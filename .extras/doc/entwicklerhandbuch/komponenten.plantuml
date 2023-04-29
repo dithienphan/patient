@@ -1,0 +1,49 @@
+' Preview durch <Alt>d
+
+@startuml Komponenten
+
+left to right direction
+
+actor RESTClient
+actor GraphQLClient
+
+node "Nest" {
+  [RequestLoggerMiddleware]
+
+  [PatientController]
+  [PatientResolver]
+
+  [PatientService]
+
+  [Repository<Patient>]
+}
+
+
+cloud {
+    [TypeORM]
+}
+
+database "DB patient" {
+    [Tabelle patient]
+    [Tabelle name]
+    [Tabelle operation]
+}
+
+RESTClient ~~> [RequestLoggerMiddleware]
+GraphQLClient ~~> [RequestLoggerMiddleware]
+
+[RequestLoggerMiddleware] ~~> [PatientController]
+[RequestLoggerMiddleware] ~~> [PatientResolver]
+
+[PatientController] ..> [PatientService]
+[PatientResolver] ..> [PatientService]
+[PatientService] ..> [Repository<Patient>]
+
+[Repository<Patient>] ~~> [TypeORM]
+[TypeORM] ~~> [Tabelle patient]
+[TypeORM] ~~> [Tabelle name]
+[TypeORM] ~~> [Tabelle operation]
+
+footer (c) Gruppe 7
+
+@enduml

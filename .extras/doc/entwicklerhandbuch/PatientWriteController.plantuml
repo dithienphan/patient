@@ -1,0 +1,111 @@
+' Preview durch <Alt>d
+
+@startuml Controller-Klasse
+
+interface Promise<T>
+
+package @nestjs/common {
+  class "@Controller" as Controller
+  hide Controller circle
+
+  class "@UseGuards" as UseGuards
+  hide UseGuards circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
+
+  class "@Post" as Post
+  hide Post circle
+
+  class "@Put" as Put
+  hide Put circle
+
+  class "@Delete" as Delete
+  hide Delete circle
+
+  class "@Req" as Req
+  hide Req circle
+
+  class "@Res" as Res
+  hide Res circle
+
+  class "@Param" as Param
+  hide Param circle
+
+  class "@Body" as Body
+  hide Body circle
+
+  class "@Headers" as Headers
+  hide Headers circle
+
+  UseInterceptors .[hidden].> Post
+  UseInterceptors .[hidden].> Put
+  UseInterceptors .[hidden].> Delete
+
+  Post .[hidden].> Req
+  Post .[hidden].> Res
+  Post .[hidden].> Param
+  Post .[hidden].> Body
+  Post .[hidden].> Headers
+}
+
+package express {
+  class Request
+  class Response
+
+  Response .right[hidden].> Controller
+}
+
+package security.auth {
+  class "type Role = 'ARZT' | 'PATIENT' | 'REZEPTIONIST'" as Role
+  hide Role circle
+
+  class "@Roles" as Roles
+  hide Roles circle
+
+  Roles .right.> Role
+}
+
+package patient {
+  package entity #FFFFFF {
+    class Patient <<entity>>
+
+    Patient .[hidden].> Promise
+    Patient .[hidden].> Request
+  }
+
+  package service {
+    class PatientWriteService << control >>
+    class PatientReadService << control >>
+  }
+
+  package rest #DDDDDD {
+    class PatientWriteController << control >> << @Controller() >> << @UseGuards() >> << @UseInterceptors() >> {
+      + @Post() @Roles() async create(@Body() patient: Patient, @Req() req: Request,  @Res() res: Response): Promise<Response>
+      + @Put() @Roles() async update(@Body() patient: Patient, @Param() id: number, @Headers() version: string, @Res() res: Response): Promise<Response>
+    }
+
+    PatientWriteController o--> "1" PatientWriteService : service
+    PatientWriteController o--> "1" PatientReadService : readService
+    PatientWriteController ..up> Patient
+
+    PatientWriteController ..> Controller
+
+    PatientWriteController .up.> Roles
+    PatientWriteController .up.> Role
+
+    PatientWriteController ..> Request
+    PatientWriteController ..> Response
+    PatientWriteController ..> Promise
+
+    Patient .up[hidden].> Roles
+    PatientWriteService .[hidden].> Request
+    PatientWriteService .[hidden].> Promise
+  }
+}
+
+hide empty members
+
+footer (c) Gruppe 7
+
+@enduml

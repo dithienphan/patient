@@ -2,18 +2,18 @@
 
 @startuml Use Cases
 
-actor Gast
-actor Admin
-actor Kunde
+actor Rezeptionist
+actor Arzt
+actor Patient
 
 rectangle patient {
-    Gast --> (Patient suchen)
-    Admin --> (Patient suchen)
-    Admin --> (Patient anlegen)
-    Admin --> (Patient ändern)
-    Kunde --> (Patient suchen)
-    Kunde --> (Patient anlegen)
-    Kunde --> (Patient ändern)
+    Patient --> (Patient suchen)
+    Arzt --> (Patient suchen)
+    Arzt --> (Patient anlegen)
+    Arzt --> (Patient ändern)
+    Rezeptionist --> (Patient suchen)
+    Rezeptionist --> (Patient anlegen)
+    Rezeptionist --> (Patient ändern)
 }
 
 footer (c) Gruppe 7
