@@ -18,11 +18,6 @@ import { PatientReadService } from '../../src/patient/service/patient-read.servi
 import { loginGraphQL } from '../login.js';
 
 // -----------------------------------------------------------------------------
-// T e s t d a t e n
-// -----------------------------------------------------------------------------
-const idLoeschen = '60';
-
-// -----------------------------------------------------------------------------
 // T e s t s
 // -----------------------------------------------------------------------------
 // Test-Suite
@@ -55,7 +50,19 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            // TODO input
+                            versichertennummer: 'Z987654321',
+                            versicherungsart: 'GESETZLICH',
+                            intensiv: true,
+                            geburtsdatum: '2020-01-01',
+                            diagnose: 'Schwindel',
+                            name: {
+                                nachname: 'Nachnamecreatemutation',
+                                vorname: 'vornamecreatemutation',
+                            },
+                            operationen: [{
+                                eingriff: "Blister Tabletten",
+                                behandlungsraum: 301
+                            }]
                         }
                     )
                 }
@@ -94,7 +101,16 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            // TODO input
+                            input: {
+                                versichertennummer: 'V-falsch-invalid',
+                                versicherungsart: 'GESETZLICH',
+                                intensiv: true,
+                                geburtsdatum: '12345-123-123',
+                                diagnose: '!?',
+                                name: {
+                                    nachname: '!?',
+                                },
+                            }
                         }
                     )
                 }
@@ -149,7 +165,15 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            // TODO input
+                            versichertennummer: 'X876543219',
+                            versicherungsart: 'GESETZLICH',
+                            intensiv: false,
+                            geburtsdatum: '2010-01-01',
+                            diagnose: 'Profimeinung',
+                            name: {
+                                nachname: 'Nachnamecreatemutation',
+                                vorname: 'vornamecreatemutation',
+                            },
                         }
                     )
                 }
@@ -191,7 +215,19 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     update(
                         input: {
-                            // TODO input
+                            input: {
+                                id: "40",
+                                version: 0,
+                                versichertennummer: 'D456789333',
+                                versicherungsart: 'GESETZLICH',
+                                intensiv: false,
+                                geburtsdatum: '2006-01-01',
+                                diagnose: 'meinung4',
+                                name: {
+                                    nachname: 'Nachnamecreatemutation',
+                                    vorname: 'vornamecreatemutation',
+                                },
+                            }
                         }
                     )
                 }
@@ -219,12 +255,12 @@ describe('GraphQL Mutations', () => {
     });
 
     // -------------------------------------------------------------------------
-    // eslint-disable-next-line max-lines-per-function
+    /// eslint-disable-next-line max-lines-per-function
     test('Patienten mit ungueltigen Werten aktualisieren', async () => {
         // given
         const token = await loginGraphQL(client);
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
-        const id = '40';
+        const id = '50';
         const body: GraphQLQuery = {
             query: `
                 mutation {
@@ -232,7 +268,11 @@ describe('GraphQL Mutations', () => {
                         input: {
                             id: "${id}",
                             version: 0,
-                            // TODO input
+                            versichertennummer: 'F567891234!?',
+                            versicherungsart: 'GESETZLICH',
+                            intensiv: true,
+                            geburtsdatum: '12345-123-123',
+                            diagnose: 'Kopfschmerz!?',
                         }
                     )
                 }
@@ -290,7 +330,11 @@ describe('GraphQL Mutations', () => {
                         input: {
                             id: "${id}",
                             version: 0,
-                            // TODO input
+                            versichertennummer: 'Y987654321',
+                            versicherungsart: 'GESETZLICH',
+                            intensiv: true,
+                            geburtsdatum: '2020-01-01',
+                            diagnose: 'Schwindel',
                         }
                     )
                 }
