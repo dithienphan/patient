@@ -8,7 +8,7 @@ import { type LoginResult } from '../src/security/auth/service/auth.service.js';
 import dotenv from 'dotenv';
 import process from 'node:process';
 
-const usernameDefault = 'admin';
+const usernameDefault = 'arzt';
 
 dotenv.config();
 const { env } = process;

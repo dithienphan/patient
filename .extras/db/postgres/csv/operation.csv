@@ -3,7 +3,7 @@ id;eingriff;behandlungsraum;patient_id
 20;OP 2;304;20
 21;OP 2;404;20
 30;OP 1;401;30
-31;OP 2;null;30
+31;OP 2;;30
 40;OP 1;500;40
-50;OP 1;null;50
+50;OP 1;;50
 60;OP 1;302;60

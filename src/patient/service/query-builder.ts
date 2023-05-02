@@ -48,7 +48,7 @@ export class QueryBuilder {
     buildId({ id, mitOperationen = false }: BuildIdParams) {
         const queryBuilder = this.#repo.createQueryBuilder(this.#patientAlias);
         queryBuilder.innerJoinAndSelect(
-            `${this.#patientAlias}.titel`,
+            `${this.#patientAlias}.name`,
             this.#nameAlias,
         );
         if (mitOperationen) {
