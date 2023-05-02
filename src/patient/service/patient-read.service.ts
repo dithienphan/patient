@@ -25,7 +25,7 @@ export interface Suchkriterien {
     readonly geburtsdatum?: Date;
     readonly intensiv?: boolean;
     readonly diagnose?: string;
-    readonly name?: string;
+    readonly nachname?: string;
 }
 
 /**
@@ -108,7 +108,7 @@ export class PatientReadService {
         // Ist jedes Suchkriterium auch eine Property von Patient?
         let validKeys = true;
         keys.forEach((key) => {
-            if (!this.#patientProps.includes(key)) {
+            if (!this.#patientProps.includes(key) && key !== 'nachname') {
                 this.#logger.debug(
                     '#find: ungueltiges Suchkriterium "%s"',
                     key,

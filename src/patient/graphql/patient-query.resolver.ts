@@ -59,10 +59,11 @@ export class PatientQueryResolver {
     }
 
     @Query()
-    async patienten(@Args() name: { name: string } | undefined) {
-        const nameStr = name?.name;
-        this.#logger.debug('find: name=%s', nameStr);
-        const suchkriterium = nameStr === undefined ? {} : { name: nameStr };
+    async patienten(@Args() name: { nachname: string } | undefined) {
+        const nameStr = name?.nachname;
+        this.#logger.debug('find: nachname=%s', nameStr);
+        const suchkriterium =
+            nameStr === undefined ? {} : { nachname: nameStr };
         const patienten = await this.#service.find(suchkriterium);
         if (patienten.length === 0) {
             throw new BadUserInputError('Es wurden keine B gefunden.');
