@@ -73,19 +73,19 @@ export class QueryBuilder {
         queryBuilder.innerJoinAndSelect(`${this.#patientAlias}.name`, 'name');
 
         // type-coverage:ignore-next-line
-        const { name, javascript, typescript, ...props } = suchkriterien;
+        const { nachname, ...props } = suchkriterien;
 
         let useWhere = true;
 
         // Name in der Query: Teilstring des Namens und "case insensitive"
         // CAVEAT: MySQL hat keinen Vergleich mit "case insensitive"
         // type-coverage:ignore-next-line
-        if (name !== undefined && typeof name === 'string') {
+        if (nachname !== undefined && typeof nachname === 'string') {
             const ilike =
                 typeOrmModuleOptions.type === 'postgres' ? 'ilike' : 'like';
             queryBuilder = queryBuilder.where(
-                `${this.#nameAlias}.name ${ilike} :name`,
-                { name: `%${name}%` },
+                `${this.#nameAlias}.nachname ${ilike} :nachname`,
+                { nachname: `%${nachname}%` },
             );
             useWhere = false;
         }
