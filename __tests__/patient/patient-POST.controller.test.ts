@@ -55,7 +55,7 @@ const neuerPatientInvalid: Record<string, unknown> = {
     intensiv: true,
     datum: '1111-90-90',
     name: {
-        vorname: 'Steven',
+        vorname: 'Steve',
         nachname: 'Rogers',
     },
 };
