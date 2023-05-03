@@ -21,7 +21,7 @@ const geaenderterPatient: PatientDtoOhneRef = {
     geburtsdatum: '2005-01-01',
     diagnose: 'deja-vu',
 };
-const idVorhanden = '30';
+const idVorhanden = '1';
 
 const geaenderterPatientIdNichtVorhanden: PatientDtoOhneRef = {
     versichertennummer: 'H135792468',
@@ -33,11 +33,11 @@ const geaenderterPatientIdNichtVorhanden: PatientDtoOhneRef = {
 const idNichtVorhanden = '999999';
 
 const geaenderterPatientInvalid: Record<string, unknown> = {
-    versichertennummer: 'V-falsch-invalid',
-    versicherungsart: 'GESETZLICH',
-    intensiv: true,
-    geburtsdatum: '2012-01-01',
-    diagnose: 'nicht-vorhanden',
+    versichertennummer: 1,
+    versicherungsart: 'falsch',
+    intensiv: 'false',
+    geburtsdatum: '20',
+    diagnose: 'egal',
 };
 
 const veralterPatient: PatientDtoOhneRef = {

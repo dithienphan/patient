@@ -275,7 +275,7 @@ export class PatientWriteController {
         versichertennummer: string | null | undefined,
         res: Response,
     ): Response {
-        const msg = `Die VERSICHERTENNUMMER-Nummer "${versichertennummer}" existiert bereits.`;
+        const msg = `Die Versichertennummer "${versichertennummer}" existiert bereits.`;
         this.#logger.debug('#handleVersichertennummerExists(): msg=%s', msg);
         return res
             .status(HttpStatus.UNPROCESSABLE_ENTITY)

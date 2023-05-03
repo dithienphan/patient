@@ -11,7 +11,7 @@ type Query {
   patient(id: ID!): Patient
 }
 
-"Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
+"Funktionen, um Patienten neu anzulegen, zu aktualisieren oder zu löschen"
 type Mutation {
   create(input: PatientInput!): String
 

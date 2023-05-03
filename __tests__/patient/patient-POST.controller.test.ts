@@ -24,9 +24,9 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
+import { HttpStatus } from '@nestjs/common';
 import { type PatientDTO } from '../../src/patient/rest/patientDTO.entity.js';
 import { PatientReadService } from '../../src/patient/service/patient-read.service.js';
-import { HttpStatus } from '@nestjs/common';
 import { loginRest } from '../login.js';
 
 // -----------------------------------------------------------------------------
