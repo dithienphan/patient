@@ -19,7 +19,7 @@ const {
     LOG_DEFAULT,
 } = env;
 
-const computername = hostname();
+const computername = hostname().toLowerCase();
 let port = Number.NaN;
 const portStr = PORT;
 if (portStr !== undefined) {

@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS patient (
     version                 integer NOT NULL DEFAULT 0,
     versichertennummer      varchar(11) NOT NULL UNIQUE USING INDEX TABLESPACE patientspace,
     versicherungsart        versicherungsart,
-    intensiv                boolean NOT NULL DEFAULT FALSE,
     geburtsdatum            date,
+    intensiv                boolean NOT NULL DEFAULT FALSE,
     diagnose                varchar(40),
     erzeugt                 timestamp NOT NULL DEFAULT NOW(),
     aktualisiert            timestamp NOT NULL DEFAULT NOW()
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS name (
 CREATE TABLE IF NOT EXISTS operation (
     id                  integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE patientspace,
     eingriff            varchar(64) NOT NULL,
-    behandlungsraum     integer NOT NULL,
+    behandlungsraum     integer,
     patient_id          integer NOT NULL REFERENCES patient
 ) TABLESPACE patientspace;
 CREATE INDEX IF NOT EXISTS operation_patient_id_idx ON operation(patient_id) TABLESPACE patientspace;

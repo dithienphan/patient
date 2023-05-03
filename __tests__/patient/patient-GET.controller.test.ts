@@ -66,7 +66,7 @@ describe('GET /rest', () => {
 
     test('Patienten mit einem Teil-Namen suchen', async () => {
         // given
-        const params = { name: nameVorhanden };
+        const params = { nachname: nameVorhanden };
 
         // when
         const response: AxiosResponse<PatientenModel> = await client.get('/', {
@@ -94,7 +94,7 @@ describe('GET /rest', () => {
 
     test('Patienten zu einem nicht vorhandenen Teil-Namen suchen', async () => {
         // given
-        const params = { name: nameNichtVorhanden };
+        const params = { nachname: nameNichtVorhanden };
 
         // when
         const response: AxiosResponse<string> = await client.get('/', {

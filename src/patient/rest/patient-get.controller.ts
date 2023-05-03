@@ -107,7 +107,7 @@ export class PatientQuery implements Suchkriterien {
     declare readonly geburtsdatum: Date;
 
     @ApiProperty({ required: false })
-    declare readonly name: string;
+    declare readonly nachname: string;
 
     @ApiProperty({ required: false })
     declare readonly diagnose?: string;

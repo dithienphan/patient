@@ -140,7 +140,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(name: "${nameVorhanden}") {
+                    patienten(nachname: "${nameVorhanden}") {
                         versicherungsart
                         name {
                             nachname
@@ -183,7 +183,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(name: "${teilNameVorhanden}") {
+                    patienten(nachname: "${teilNameVorhanden}") {
                         versicherungsart
                         name {
                             nachname
@@ -226,7 +226,7 @@ describe('GraphQL Queries', () => {
         const body: GraphQLRequest = {
             query: `
                 {
-                    patienten(name: "${teilNameNichtVorhanden}") {
+                    patienten(nachname: "${teilNameNichtVorhanden}") {
                         versicherungsart
                         name {
                             nachname
