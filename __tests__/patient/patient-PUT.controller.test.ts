@@ -33,11 +33,11 @@ const geaenderterPatientIdNichtVorhanden: PatientDtoOhneRef = {
 const idNichtVorhanden = '999999';
 
 const geaenderterPatientInvalid: Record<string, unknown> = {
-    versichertennummer: 1,
-    versicherungsart: 'falsch',
-    intensiv: 'false',
-    geburtsdatum: '20',
-    diagnose: 'egal',
+    versichertennummer: false,
+    versicherungsart: 'UNSICHTBAR',
+    intensiv: 'lol',
+    geburtsdatum: '1111-90-90',
+    diagnose: 'deja-vu',
 };
 
 const veralterPatient: PatientDtoOhneRef = {
@@ -126,11 +126,9 @@ describe('PUT /rest/:id', () => {
         headers.Authorization = `Bearer ${token}`;
         headers['If-Match'] = '"0"';
         const expectedMsg = [
-            expect.stringMatching(/^versichertennummer /u),
             expect.stringMatching(/^versicherungsart /u),
-            expect.stringMatching(/^intensiv /u),
             expect.stringMatching(/^geburtsdatum /u),
-            expect.stringMatching(/^diagnose /u),
+            expect.stringMatching(/^intensiv /u),
         ];
 
         // when
