@@ -66,7 +66,7 @@ export class PatientQueryResolver {
             nameStr === undefined ? {} : { nachname: nameStr };
         const patienten = await this.#service.find(suchkriterium);
         if (patienten.length === 0) {
-            throw new BadUserInputError('Es wurden keine B gefunden.');
+            throw new BadUserInputError('Es wurden keine Patienten gefunden.');
         }
 
         const patientenDTO = patienten.map((patient) =>
