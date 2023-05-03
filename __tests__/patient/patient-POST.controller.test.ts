@@ -53,9 +53,9 @@ const neuerPatientInvalid: Record<string, unknown> = {
     versichertennummer: 'falsche-versichertennummer',
     versicherungsart: 'UNSICHTBAR',
     intensiv: true,
-    datum: '1111-90-90',
+    geburtsdatum: '1111-90-90',
     name: {
-        vorname: 'Steve',
+        vorname: 'Walter',
         nachname: 'Rogers',
     },
 };
@@ -66,8 +66,8 @@ const neuerPatientVersichertennummerExistiert: PatientDTO = {
     geburtsdatum: '2022-02-28',
     diagnose: 'Atmungsschwierigkeiten',
     name: {
-        vorname: 'Barry',
-        nachname: 'Allen',
+        vorname: 'Heinrich',
+        nachname: 'Kleinbaum',
     },
     operationen: [
         {
@@ -143,13 +143,9 @@ describe('POST /rest', () => {
         headers.Authorization = `Bearer ${token}`;
         const expectedMsg = [
             expect.stringMatching(/^versichertennummer /u),
-            expect.stringMatching(/^rating /u),
             expect.stringMatching(/^versicherungsart /u),
-            expect.stringMatching(/^preis /u),
-            expect.stringMatching(/^rabatt /u),
-            expect.stringMatching(/^datum /u),
-            expect.stringMatching(/^homepage /u),
-            expect.stringMatching(/^titel.titel /u),
+            expect.stringMatching(/^geburtsdatum /u),
+            expect.stringMatching(/^name.vorname /u),
         ];
 
         // when
