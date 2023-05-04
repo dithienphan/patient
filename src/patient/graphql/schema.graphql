@@ -4,7 +4,7 @@ schema {
   mutation: Mutation
 }
 
-"Funktionen, um Bücherdaten zu lesen"
+"Funktionen, um Patientendaten zu lesen"
 type Query {
   patienten(nachname: String): [Patient!]
 
@@ -16,8 +16,6 @@ type Mutation {
   create(input: PatientInput!): String
 
   update(input: PatientUpdateInput!): Int
-
-  delete(id: ID!): Boolean
 }
 
 "Daten zum Name eines Patienten"
@@ -32,9 +30,9 @@ type Patient {
   version: Int!
   versichertennummer: String!
   versicherungsart: Versicherungsart
-  intensiv: Boolean
   geburtsdatum: String
-  diagnose: [String]
+  intensiv: Boolean
+  diagnose: String
   name: Name!
 }
 
@@ -53,16 +51,16 @@ input NameInput {
 "Daten zu den Operationen eines Patienten"
 input OperationInput {
   eingriff: String!
-  behandlungsraum: Int!
+  behandlungsraum: Int
 }
 
 "Daten für einen neuen Patienten"
 input PatientInput {
-  versichertennummer: String
+  versichertennummer: String!
   versicherungsart: Versicherungsart
-  intensiv: Boolean
   geburtsdatum: String
-  diagnose: [String]
+  intensiv: Boolean
+  diagnose: String
   name: NameInput!
   operationen: [OperationInput!]
 }
@@ -71,9 +69,9 @@ input PatientInput {
 input PatientUpdateInput {
   id: ID
   version: Int
-  versichertennummer: String
+  versichertennummer: String!
   versicherungsart: Versicherungsart
-  intensiv: Boolean
   geburtsdatum: String
+  intensiv: Boolean
   diagnose: [String]
 }

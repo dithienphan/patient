@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 // eslint-disable-next-line max-classes-per-file
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { type CreateError, type UpdateError } from '../service/errors.js';
@@ -13,8 +29,17 @@ import { PatientWriteService } from '../service/patient-write.service.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.js';
 import { RolesGraphQlGuard } from '../../security/auth/roles/roles-graphql.guard.js';
-
 import { getLogger } from '../../logger/logger.js';
+
+// Authentifizierung und Autorisierung durch
+//  GraphQL Shield
+//      https://www.graphql-shield.com
+//      https://github.com/maticzav/graphql-shield
+//      https://github.com/nestjs/graphql/issues/92
+//      https://github.com/maticzav/graphql-shield/issues/213
+//  GraphQL AuthZ
+//      https://github.com/AstrumU/graphql-authz
+//      https://www.the-guild.dev/blog/graphql-authz
 
 export class PatientUpdateDTO extends PatientDTO {
     @IsNumberString()
@@ -100,9 +125,9 @@ export class PatientMutationResolver {
             intensiv: patientDTO.intensiv,
             diagnose: patientDTO.diagnose,
             name,
-            operationen,
             erzeugt: undefined,
             aktualisiert: undefined,
+            operationen,
         };
 
         // Rueckwaertsverweis
