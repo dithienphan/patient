@@ -62,7 +62,7 @@ input PatientInput {
   intensiv: Boolean
   diagnose: String
   name: NameInput!
-  operationen: [OperationInput!]
+  operationen: [OperationInput]
 }
 
 "Daten für einen zu ändernden Patienten"

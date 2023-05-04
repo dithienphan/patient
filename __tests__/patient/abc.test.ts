@@ -45,7 +45,7 @@ describe('GraphQL Mutations', () => {
     });
 
     // -------------------------------------------------------------------------
-    test('Neueer Patient', async () => {
+    test('Neuer Patient', async () => {
         // given
         const token = await loginGraphQL(client);
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
@@ -63,7 +63,7 @@ describe('GraphQL Mutations', () => {
                                 nachname: "ncreatemutation",
                                 vorname: "vcreatemutation"
                             },
-                            operation: [{
+                            operationen: [{
                                 eingriff: "nichts",
                                 behandlungsraum: 1
                             }]
@@ -92,6 +92,65 @@ describe('GraphQL Mutations', () => {
         // Der Wert der Mutation ist die generierte ObjectID
         expect(create).toBeDefined();
         expect(PatientReadService.ID_PATTERN.test(create as string)).toBe(true);
+    });
+
+    // eslint-disable-next-line max-lines-per-function
+    test('Patient mit ungueltigen Werten neu anlegen', async () => {
+        // given
+        const token = await loginGraphQL(client);
+        const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
+        const body: GraphQLQuery = {
+            query: `
+                mutation {
+                    create(
+                        input: {
+                            versichertennummer: "a123456701",
+                            versicherungsart: PRIVAT,
+                            geburtsdatum: "28",
+                            intensiv: true
+                            name: {
+                                nachname: "!!",
+                                vorname: "!!"
+                            }
+                        }
+                    )
+                }
+            `,
+        };
+        const expectedMsg = [
+            expect.stringMatching(/^geburtsdatum /u),
+            expect.stringMatching(/^name.nachname /u),
+            expect.stringMatching(/^name.vorname /u),
+        ];
+
+        // when
+        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
+            graphqlPath,
+            body,
+            { headers: authorization },
+        );
+
+        // then
+        const { status, headers, data } = response;
+
+        expect(status).toBe(HttpStatus.OK);
+        expect(headers['content-type']).toMatch(/json/iu);
+        expect(data.data!.create).toBeNull();
+
+        const { errors } = data;
+
+        expect(errors).toHaveLength(1);
+
+        const [error] = errors!;
+        const extensions: any = error?.extensions;
+
+        expect(extensions).toBeDefined();
+
+        const messages: string[] = extensions?.originalError?.message;
+
+        expect(messages).toBeDefined();
+        expect(messages).toHaveLength(expectedMsg.length);
+        expect(messages).toEqual(expect.arrayContaining(expectedMsg));
     });
 });
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
