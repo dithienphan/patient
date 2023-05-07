@@ -62,7 +62,7 @@ export class PatientWriteController {
     }
 
     /**
-     * Ein neues Patient wird asynchron angelegt. Das neu anzulegende Patient ist als
+     * Ein neuer Patient wird asynchron angelegt. Das neu anzulegende Patient ist als
      * JSON-Datensatz im Request-Objekt enthalten. Wenn es keine
      * Verletzungen von Constraints gibt, wird der Statuscode `201` (`Created`)
      * gesetzt und im Response-Header wird `Location` auf die URI so gesetzt,
@@ -78,7 +78,7 @@ export class PatientWriteController {
      */
     @Post()
     @RolesAllowed('arzt', 'rezeptionist')
-    @ApiOperation({ summary: 'Ein neues Patient anlegen' })
+    @ApiOperation({ summary: 'Einen neuen Patienten anlegen' })
     @ApiCreatedResponse({ description: 'Erfolgreich neu angelegt' })
     @ApiBadRequestResponse({ description: 'Fehlerhafte Patientdaten' })
     async create(
