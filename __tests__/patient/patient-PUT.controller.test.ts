@@ -115,11 +115,11 @@ describe('PUT /rest/:id', () => {
 
         expect(status).toBe(HttpStatus.PRECONDITION_FAILED);
         expect(data).toBe(
-            `Es gibt kein Patient mit der ID "${idNichtVorhanden}".`,
+            `Es gibt keinen Patient mit der ID "${idNichtVorhanden}".`,
         );
     });
 
-    test('Vorhandenen Patient aendern, aber mit ungueltigen Daten', async () => {
+    test('Vorhandenen Patienten aendern, aber mit ungueltigen Daten', async () => {
         // given
         const url = `/rest/${idVorhanden}`;
         const token = await loginRest(client);
@@ -151,7 +151,7 @@ describe('PUT /rest/:id', () => {
         expect(messages).toEqual(expect.arrayContaining(expectedMsg));
     });
 
-    test('Vorhandenen Patient aendern, aber ohne Versionsnummer', async () => {
+    test('Vorhandenen Patienten aendern, aber ohne Versionsnummer', async () => {
         // given
         const url = `/rest/${idVorhanden}`;
         const token = await loginRest(client);
@@ -172,7 +172,7 @@ describe('PUT /rest/:id', () => {
         expect(data).toBe('Header "If-Match" fehlt');
     });
 
-    test('Vorhandenen Patient aendern, aber mit alter Versionsnummer', async () => {
+    test('Vorhandenen Patienten aendern, aber mit alter Versionsnummer', async () => {
         // given
         const url = `/rest/${idVorhanden}`;
         const token = await loginRest(client);
@@ -193,7 +193,7 @@ describe('PUT /rest/:id', () => {
         expect(data).toEqual(expect.stringContaining('Die Versionsnummer'));
     });
 
-    test('Vorhandenen Patient aendern, aber ohne Token', async () => {
+    test('Vorhandenen Patienten aendern, aber ohne Token', async () => {
         // given
         const url = `/rest/${idVorhanden}`;
         delete headers.Authorization;
