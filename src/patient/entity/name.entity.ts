@@ -5,7 +5,7 @@ import {
     OneToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Patient } from './patient.entity';
+import { Patient } from './patient.entity.js';
 
 //Name
 @Entity()

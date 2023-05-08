@@ -94,7 +94,6 @@ describe('GraphQL Mutations', () => {
         expect(PatientReadService.ID_PATTERN.test(create as string)).toBe(true);
     });
 
-    // eslint-disable-next-line max-lines-per-function
     test('Patient mit ungueltigen Werten neu anlegen', async () => {
         // given
         const token = await loginGraphQL(client);
@@ -146,6 +145,7 @@ describe('GraphQL Mutations', () => {
 
         expect(extensions).toBeDefined();
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const messages: string[] = extensions?.originalError?.message;
 
         expect(messages).toBeDefined();
