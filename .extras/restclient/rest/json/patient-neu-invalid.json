@@ -1,0 +1,10 @@
+{
+  "versichertennummer": "A123456789",
+  "versicherungsart": "UNSICHTBAR",
+  "intensiv": "lol",
+  "geburtsdatum": "1111-90-90",
+  "name": {
+    "vorname": "",
+    "nachname": ""
+  }
+}

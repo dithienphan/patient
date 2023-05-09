@@ -1,0 +1,16 @@
+{
+  "versichertennummer": "A123456789",
+    "versicherungsart": "GESETZLICH",
+    "intensiv": true,
+    "geburtsdatum": "1970-10-10",
+    "diagnose": "Atmungsprobleme",
+    "name": {
+      "vorname": "Peter",
+      "nachname": "Parker"
+    },
+    "operationen": [{
+      "eingriff": "Herz",
+      "behandlungsraum": 100
+    }]
+}
+

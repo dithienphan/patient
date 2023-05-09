@@ -1,0 +1,34 @@
+### Suche alle Patienten
+GET {{restUrl}}
+
+### Suche mit vorhandener Patienten-ID
+GET {{restUrl}}/1
+
+### Suche mit nicht-vorhandener Patienten-ID
+GET {{restUrl}}/999999
+
+
+### Mit E-Tag:
+
+### Suche mit vorhandener Patienten-ID und Versionsnummer
+GET {{restUrl}}/1
+If-None-Match: "0"
+
+### Suche mit vorhandener Patienten-ID und falscher Versionsnummer
+GET {{restUrl}}/1
+If-None-Match: 0
+
+
+### mit Suchekriterien:
+
+### Suche mit vorhandenem Nachnamen
+GET {{restUrl}}?nachname=a
+
+### Suche mit nicht vorhandenen Nachnamen
+GET {{restUrl}}?nachname=xxx
+
+### Suche mit intensiv
+GET {{restUrl}}?intensiv=true
+
+### Suche mit Versicherungsart
+GET {{restUrl}}?versicherungsart=GESETZLICH

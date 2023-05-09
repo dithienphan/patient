@@ -1,5 +1,0 @@
-### Suche alle Patienten
-GET {{restUrl}}
-
-### Suche mit vorhandener Patienten-ID
-GET {{restUrl}}/1
