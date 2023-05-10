@@ -14,14 +14,14 @@ X-REQUEST-TYPE: GraphQL
   }
 }
 
-### Suche versicherungsnummer, version, versicherungsart und name von einem Patienten mit vorhandener Patient-ID
+### Suche versichertennummer, version, versicherungsart und name von einem Patienten mit vorhandener Patient-ID
 POST {{graphQlUrl}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
 query ($id: ID! = "1") {
   patient(id: $id) {
-    versicherungsnummer
+    versichertennummer
     version
     versicherungsart
     name {
@@ -56,14 +56,14 @@ POST {{graphQlUrl}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-query ($name: String = "Alpha") {
-  patienten(name: $name) {
+query ($nachname: String = "Alpha") {
+  patienten(nachname: $nachname) {
     versicherungsart
   }
 }
 
 {
-  "nachname": "Alpha"
+  "nachname": "alpha"
 }
 
 ### Suche versicherungsart, diagnose und nachname von Patienten mit vorhandenem Nachnamen
@@ -71,8 +71,8 @@ POST {{graphQlUrl}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-query ($name: String = "a") {
-  patienten(name: $name) {
+query ($nachname: String = "a") {
+  patienten(nachname: $nachname) {
     versicherungsart
     diagnose
     name {
@@ -90,8 +90,8 @@ POST {{graphQlUrl}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-query ($name: String = "Nichtvorhanden") {
-  patienten(name: $name) {
+query ($nachname: String = "Nichtvorhanden") {
+  patienten(nachname: $nachname) {
     versicherungsart
   }
 }

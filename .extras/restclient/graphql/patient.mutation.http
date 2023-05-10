@@ -106,6 +106,7 @@ mutation {
       geburtsdatum: "2022-02-28",
       intensiv: true,
       diagnose: "Aktualisiert"
+    }
   )
 }
 
@@ -125,6 +126,7 @@ mutation {
       geburtsdatum: "28",
       intensiv: true,
       diagnose: "Hoffnung"
+    }
   )
 }
 
