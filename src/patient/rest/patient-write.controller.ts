@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /**
  * Das Modul besteht aus der Controller-Klasse für Schreiben an der REST-Schnittstelle.
  * @packageDocumentation
@@ -182,41 +181,6 @@ export class PatientWriteController {
         return res.set('ETag', `"${result}"`).sendStatus(HttpStatus.NO_CONTENT);
     }
 
-    // /**
-    //  * Ein Patient wird anhand seiner ID-gelöscht, die als Pfad-Parameter angegeben
-    //  * ist. Der zurückgelieferte Statuscode ist `204` (`No Content`).
-    //  *
-    //  * @param id Pfad-Paramater für die ID.
-    //  * @param res Leeres Response-Objekt von Express.
-    //  * @returns Leeres Promise-Objekt.
-    //  */
-    // @Delete(':id')
-    // @RolesAllowed('rezeptionist')
-    // @ApiOperation({ summary: 'Patient mit der ID löschen', tags: ['Loeschen'] })
-    // @ApiHeader({
-    //     name: 'Authorization',
-    //     description: 'Header für JWT',
-    //     required: true,
-    // })
-    // @ApiNoContentResponse({
-    //     description: 'Das Patient wurde gelöscht oder war nicht vorhanden',
-    // })
-    // async delete(
-    //     @Param('id') id: number,
-    //     @Res() res: Response,
-    // ): Promise<Response<undefined>> {
-    //     this.#logger.debug('delete: id=%s', id);
-
-    //     try {
-    //         await this.#service.delete(id);
-    //     } catch (err) {
-    //         this.#logger.error('delete: error=%o', err);
-    //         return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-
-    //     return res.sendStatus(HttpStatus.NO_CONTENT);
-    // }
-
     #patientDtoToPatient(patientDTO: PatientDTO): Patient {
         const nameDTO = patientDTO.name;
         const name: Name = {
@@ -257,18 +221,13 @@ export class PatientWriteController {
     }
 
     #handleCreateError(err: CreateError, res: Response) {
-        switch (err.type) {
-            case 'VersichertennummerExists': {
-                return this.#handleVersichertennummerExists(
-                    err.versichertennummer,
-                    res,
-                );
-            }
-
-            default: {
-                return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        if (err.type.toString() === 'VersichertennummerExists') {
+            return this.#handleVersichertennummerExists(
+                err.versichertennummer,
+                res,
+            );
         }
+        return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     #handleVersichertennummerExists(
@@ -337,4 +296,3 @@ export class PatientWriteController {
         }
     }
 }
-/* eslint-enable max-lines */

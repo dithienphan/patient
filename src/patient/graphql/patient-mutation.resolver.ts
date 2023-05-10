@@ -127,14 +127,10 @@ export class PatientMutationResolver {
     }
 
     #errorMsgCreatePatient(err: CreateError) {
-        switch (err.type) {
-            case 'VersichertennummerExists': {
-                return `Die Versichertennummer ${err.versichertennummer} existiert bereits`;
-            }
-            default: {
-                return 'Unbekannter Fehler';
-            }
+        if (err.type.toString() === 'VersichertennummerExists') {
+            return `Die Versichertennummer ${err.versichertennummer} existiert bereits`;
         }
+        return 'Unbekannter Fehler';
     }
 
     #errorMsgUpdatePatient(err: UpdateError) {

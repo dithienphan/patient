@@ -49,7 +49,6 @@ const {
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
 
 /* eslint-disable @typescript-eslint/naming-convention */
-// TODO records als "deeply immutable data structure" (Stage 2)
 // https://github.com/tc39/proposal-record-tuple
 /**
  * Umgebungsvariable zur Konfiguration
