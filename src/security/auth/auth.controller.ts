@@ -57,7 +57,7 @@ import { paths } from '../../config/paths.js';
 export class Login {
     /** Benutzername */
     // https://docs.nestjs.com/openapi/types-and-parameters
-    @ApiProperty({ example: 'admin', type: String })
+    @ApiProperty({ example: 'arzt', type: String })
     username: string | undefined;
 
     /** Passwort */

@@ -23,7 +23,7 @@ Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-  login(username: "admin", password: "p") {
+  login(username: "arzt", password: "p") {
     token
     expiresIn
     roles
@@ -36,7 +36,7 @@ Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-  login(username: "admin", password: "FALSCH") {
+  login(username: "arzt", password: "FALSCH") {
     token
     expiresIn
     roles
