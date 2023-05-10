@@ -74,10 +74,10 @@ COPY --from=builder --chown=app:app /app/package.json /app/.env /app/.npmrc /app
 COPY --from=builder --chown=app:app /app/dist ./dist
 COPY --from=builder --chown=app:app /app/src/patient/graphql/schema.graphql ./dist/patient/graphql/
 COPY --from=builder --chown=app:app /app/src/security/auth/login.graphql ./dist/security/auth/
-COPY --from=builder --chown=app:app /app/src/config/dev/mysql ./dist/config/dev/mysql
+# COPY --from=builder --chown=app:app /app/src/config/dev/mysql ./dist/config/dev/mysql
 COPY --from=builder --chown=app:app /app/src/config/dev/postgres ./dist/config/dev/postgres
 # better-sqlite3 muss mit Python uebersetzt werden
-COPY --from=builder --chown=app:app /app/src/config/dev/sqlite ./dist/config/dev/sqlite
+# COPY --from=builder --chown=app:app /app/src/config/dev/sqlite ./dist/config/dev/sqlite
 COPY --from=builder --chown=app:app /app/src/config/jwt ./dist/config/jwt
 COPY --from=builder --chown=app:app /app/src/config/tls ./dist/config/tls
 
