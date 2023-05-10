@@ -380,37 +380,37 @@ Beispielhafte _Queries_ und _Mutations_ für GraphQL gibt es in den Dateien
 
 In der Sandbox kann man z.B. folgende Query absetzen:
 
-...
+```GraphQL
 {
   patient(id: "000000000000000000000001") {
-    titel
+    name
     versicherungsart
-    isbn
+    versichertennummer
     version
   }
 }
-...
+```
 
 Oder unter Verwendung von einer Variablen (hier: `patientId`):
 
-...
+```GraphQL
 query ($patientId: ID!) {
   patient(id: $patientId) {
-    titel
+    name
     versicherungsart
-    isbn
+    versichertennummer
     version
   }
 }
-...
+```
 
 Dazu muss man im unteren Abschnitt _Variables_ folgendes eintragen:
 
-...
+```GraphQL
 {
   "patientId": "000000000000000000000001"
 }
-...
+```
 
 Außerdem bietet Nest für eine GraphQL-Schnittstelle in einem Webbrowser die URL
 `https://localhost:3000/graphql` an, mit der man auf _Playground_ zugreifen kann,

@@ -47,7 +47,6 @@ export interface PatientNotExists {
 /**
  * Union-Type für Fehler beim Ändern eines Patientes:
  * - {@linkcode PatientNotExists}
- * - {@linkcode ConstraintViolations}
  * - {@linkcode VersionInvalid}
  * - {@linkcode VersionOutdated}
  */
