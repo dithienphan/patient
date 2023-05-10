@@ -1,0 +1,101 @@
+### Suche id, version und name von allen Patienten
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+  patienten {
+    id
+    version
+    versicherungsart
+    name {
+      nachname
+    }
+  }
+}
+
+### Suche versicherungsnummer, version, versicherungsart und name von einem Patienten mit vorhandener Patient-ID
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($id: ID! = "1") {
+  patient(id: $id) {
+    versicherungsnummer
+    version
+    versicherungsart
+    name {
+      nachname
+    }
+  }
+}
+
+{
+  "id": "1"
+}
+
+### Suche nachname von einem Patienten mit nicht-vorhandener Patient-ID
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($id: ID! = "999999") {
+  patient(id: $id) {
+    name {
+      nachname
+    }
+  }
+}
+
+{
+  "id": "999999"
+}
+
+### Suche versicherungsart von Patienten mit vorhandenem Name
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($name: String = "Alpha") {
+  patienten(name: $name) {
+    versicherungsart
+  }
+}
+
+{
+  "nachname": "Alpha"
+}
+
+### Suche versicherungsart, diagnose und nachname von Patienten mit vorhandenem Nachnamen
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($name: String = "a") {
+  patienten(name: $name) {
+    versicherungsart
+    diagnose
+    name {
+      nachname
+    }
+  }
+}
+
+{
+  "nachname": "a"
+}
+
+### Suche versicherungsart von Patienten mit NICHT-vorhandenem Namen
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($name: String = "Nichtvorhanden") {
+  patienten(name: $name) {
+    versicherungsart
+  }
+}
+
+{
+  "name": "Nichtvorhanden"
+}

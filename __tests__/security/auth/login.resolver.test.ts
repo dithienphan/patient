@@ -39,7 +39,7 @@ describe('Login', () => {
 
     test('Login', async () => {
         // given
-        const username = 'admin';
+        const username = 'arzt';
         const password = 'p'; //NOSONAR
         const body: GraphQLQuery = {
             query: `
@@ -87,7 +87,7 @@ describe('Login', () => {
 
     test('Login mit falschem Passwort', async () => {
         // given
-        const username = 'admin';
+        const username = 'arzt';
         const password = 'FALSCH'; //NOSONAR
         const body: GraphQLQuery = {
             query: `

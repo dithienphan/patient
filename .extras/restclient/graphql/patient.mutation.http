@@ -1,0 +1,149 @@
+### Einloggen in der Rolle "arzt", "rezeptionist" und "patient"
+// @name login
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  login(username: "arzt", password: "p") { token expiresIn roles }
+}
+
+### Einloggen in der Rolle "rezeptionist" und "patient"
+// @name login
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  login(username: "alfred.alpha", password: "p") { token expiresIn roles }
+}
+
+### Einloggen in der Rolle "patient"
+// @name login
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  login(username: "dirk.delta", password: "p") { token expiresIn roles }
+}
+
+### Einloggen mit falschem Passwort
+// @name login
+POST {{graphQlUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  login(username: "arzt", password: "FALSCH") { token expiresIn roles }
+}
+
+### Neues Patient anlegen
+POST {{graphQlUrl}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.data.login.token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create(
+    input: {
+      versichertennummer: "a123456700",
+      versicherungsart: PRIVAT,
+      geburtsdatum: "2022-02-28",
+      intensiv: true,
+      diagnose: "Hoffnung",
+      name: {
+        nachname: "ncreatemutation",
+        vorname: "vcreatemutation"
+      },
+      operationen: [{
+      eingriff: "nichts",
+      behandlungsraum: 1
+      }]
+    }
+  )
+}
+
+### Neues Patient mit ungueltigen Daten anlegen
+POST {{graphQlUrl}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.data.login.token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  create(
+    input: {
+      versichertennummer: "a123456706",
+      versicherungsart: PRIVAT,
+      geburtsdatum: "28",
+      intensiv: true,
+      diagnose: "Hoffnung",
+      name: {
+        nachname: "",
+        vorname: ""
+      },
+      operationen: [{
+      eingriff: "",
+      behandlungsraum: 1
+      }]
+    }
+  )
+}
+
+### Vorhandenes Patient aktualisieren
+POST {{graphQlUrl}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.data.login.token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  update(
+    input: {
+      id: "40",
+      version: 0,
+      versichertennummer: "a123456710",
+      versicherungsart: PRIVAT,
+      geburtsdatum: "2022-02-28",
+      intensiv: true,
+      diagnose: "Aktualisiert"
+  )
+}
+
+### Vorhandenes Patient mit ungueltigen Werten aktualisieren
+POST {{graphQlUrl}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.data.login.token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  update(
+    input: {
+      id: 40,
+      version: 0,
+      versichertennummer: "a123456706",
+      versicherungsart: PRIVAT,
+      geburtsdatum: "28",
+      intensiv: true,
+      diagnose: "Hoffnung"
+  )
+}
+
+### Nicht-Vorhandenes Patient aktualisieren
+POST {{graphQlUrl}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.data.login.token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  update(
+    input: {
+      id: "999999",
+      version: 0,
+      versichertennummer: "a123456711",
+      versicherungsart: PRIVAT,
+      geburtsdatum: "2022-02-28",
+      intensiv: true,
+      diagnose: "Aktualisiert"
+    }
+  )
+}

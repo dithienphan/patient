@@ -165,7 +165,7 @@ export class PatientMutationResolver {
     #errorMsgUpdatePatient(err: UpdateError) {
         switch (err.type) {
             case 'PatientNotExists': {
-                return `Es gibt kein Patient mit der ID ${err.id}`;
+                return `Es gibt keinen Patienten mit der ID ${err.id}`;
             }
             case 'VersionInvalid': {
                 return `"${err.version}" ist keine gueltige Versionsnummer`;

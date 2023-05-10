@@ -100,12 +100,13 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            versichertennummer: 'V-falsch-invalid',
-                            versicherungsart: 'Falsch',
-                            geburtsdatum: '12345-123-123',
-                            intensiv: '!?',
+                            versichertennummer: "a123456701",
+                            versicherungsart: PRIVAT,
+                            geburtsdatum: "28",
+                            intensiv: true
                             name: {
-                                nachname: true
+                                nachname: "!!",
+                                vorname: "!!"
                             }
                         }
                     )
@@ -113,10 +114,9 @@ describe('GraphQL Mutations', () => {
             `,
         };
         const expectedMsg = [
-            expect.stringMatching(/^versicherungsart /u),
-            expect.stringMatching(/^intensiv /u),
             expect.stringMatching(/^geburtsdatum /u),
             expect.stringMatching(/^name.nachname /u),
+            expect.stringMatching(/^name.vorname /u),
         ];
 
         // when
@@ -159,15 +159,19 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            versichertennummer: 'X876543219',
-                            versicherungsart: 'GESETZLICH',
-                            geburtsdatum: '2010-01-01',
-                            intensiv: false,
-                            diagnose: 'Profimeinung',
+                            versichertennummer: "a123456701",
+                            versicherungsart: PRIVAT,
+                            geburtsdatum: "2022-02-28",
+                            intensiv: true,
+                            diagnose: "Hoffnung",
                             name: {
-                                nachname: 'Nachnamecreatemutation',
-                                vorname: 'vornamecreatemutation',
+                                nachname: "ncreatemutation",
+                                vorname: "vcreatemutation"
                             },
+                            operationen: [{
+                                eingriff: "nichts",
+                                behandlungsraum: 1
+                            }]
                         }
                     )
                 }
@@ -209,19 +213,13 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     update(
                         input: {
-                            input: {
-                                id: "40",
-                                version: 0,
-                                versichertennummer: 'D456789333',
-                                versicherungsart: 'GESETZLICH',
-                                geburtsdatum: '2006-01-01',
-                                intensiv: false,
-                                diagnose: 'meinung4',
-                                name: {
-                                    nachname: 'Nachnamecreatemutation',
-                                    vorname: 'vornamecreatemutation',
-                                },
-                            }
+                            id: "30",
+                            version: 0,
+                            versichertennummer: "A123456702",
+                            versicherungsart: GESETZLICH,
+                            geburtsdatum: "2006-01-01",
+                            intensiv: false,
+                            diagnose: "meinung4"
                         }
                     )
                 }
@@ -249,7 +247,6 @@ describe('GraphQL Mutations', () => {
     });
 
     // -------------------------------------------------------------------------
-    /// eslint-disable-next-line max-lines-per-function
     test('Patienten mit ungueltigen Werten aktualisieren', async () => {
         // given
         const token = await loginGraphQL(client);
@@ -259,27 +256,19 @@ describe('GraphQL Mutations', () => {
             query: `
                 mutation {
                     update(
-                        input: {
-                            id: "${id}",
-                            version: 0,
-                            versichertennummer: 'F567891234!?',
-                            versicherungsart: 'GESETZLICH',
-                            geburtsdatum: '12345-123-123',
-                            intensiv: true,
-                            diagnose: 'Kopfschmerz!?',
-                        }
+                            input: {
+                                id: "${id}",
+                                version: 0,
+                                versichertennummer: "a123456701",
+                                versicherungsart: PRIVAT,
+                                geburtsdatum: "28",
+                                intensiv: true
+                            }
                     )
                 }
             `,
         };
-        const expectedMsg = [
-            expect.stringMatching(/^isbn /u),
-            expect.stringMatching(/^rating /u),
-            expect.stringMatching(/^preis /u),
-            expect.stringMatching(/^rabatt /u),
-            expect.stringMatching(/^datum /u),
-            expect.stringMatching(/^homepage /u),
-        ];
+        const expectedMsg = [expect.stringMatching(/^geburtsdatum /u)];
 
         // when
         const response: AxiosResponse<GraphQLResponseBody> = await client.post(
@@ -324,11 +313,11 @@ describe('GraphQL Mutations', () => {
                         input: {
                             id: "${id}",
                             version: 0,
-                            versichertennummer: 'Y987654321',
-                            versicherungsart: 'GESETZLICH',
-                            geburtsdatum: '2020-01-01',
-                            intensiv: true,
-                            diagnose: 'Schwindel',
+                            versichertennummer: "A123456780",
+                            versicherungsart: GESETZLICH,
+                            geburtsdatum: "2006-01-01",
+                            intensiv: false,
+                            diagnose: "meinung4"
                         }
                     )
                 }

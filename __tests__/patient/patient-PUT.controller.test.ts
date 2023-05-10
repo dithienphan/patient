@@ -115,7 +115,7 @@ describe('PUT /rest/:id', () => {
 
         expect(status).toBe(HttpStatus.PRECONDITION_FAILED);
         expect(data).toBe(
-            `Es gibt keinen Patient mit der ID "${idNichtVorhanden}".`,
+            `Es gibt keinen Patienten mit der ID "${idNichtVorhanden}".`,
         );
     });
 

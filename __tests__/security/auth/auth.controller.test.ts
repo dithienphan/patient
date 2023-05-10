@@ -19,7 +19,7 @@ const { USER_PASSWORD, USER_PASSWORD_FALSCH } = env;
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
-const username = 'admin';
+const username = 'arzt';
 const password = USER_PASSWORD;
 const passwordFalsch = USER_PASSWORD_FALSCH;
 

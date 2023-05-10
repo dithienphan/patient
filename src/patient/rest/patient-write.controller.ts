@@ -303,7 +303,7 @@ export class PatientWriteController {
         switch (err.type) {
             case 'PatientNotExists': {
                 const { id } = err;
-                const msg = `Es gibt kein Patient mit der ID "${id}".`;
+                const msg = `Es gibt keinen Patienten mit der ID "${id}".`;
                 this.#logger.debug('#handleUpdateError: msg=%s', msg);
                 return res
                     .status(HttpStatus.PRECONDITION_FAILED)
