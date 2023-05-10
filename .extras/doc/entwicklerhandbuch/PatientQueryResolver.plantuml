@@ -30,7 +30,7 @@ package patient {
   }
 
   package graphql #DDDDDD {
-    class "type PatientDTO = Omit<Patient, 'abbildungen' | 'aktualisiert' | 'erzeugt'" as PatientDTO
+    class "type PatientDTO = Omit<Patient, 'operationen' | 'aktualisiert' | 'erzeugt'" as PatientDTO
     hide PatientDTO circle
 
     interface IdInput {

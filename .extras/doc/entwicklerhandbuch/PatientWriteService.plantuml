@@ -25,14 +25,13 @@ package patient {
 
   package service #DDDDDD {
     class PatientInvalid
-    class TitelExists
-    class IsbnExists
+    class VersichertennummerExists
     class VersionInvalid
     class VersionOutdated
 
     class PatientWriteService << control >> <<@Injectable()>> {
-      + async create(patient: Patient): Promise<string|PatientInvalid|TitelExists|IsbnExists>
-      + async update(id: number, patient: Patient, version: string): Promise<number|PatientInvalid|TitelExists|IsbnExists|VersionInvalid|VersionOutdated>
+      + async create(patient: Patient): Promise<string|PatientInvalid|VersichertennummerExists>
+      + async update(id: number, patient: Patient, version: string): Promise<number|PatientInvalid|VersichertennummerExists|VersionInvalid|VersionOutdated>
     }
 
     PatientWriteService o--> "1" PatientValidationService: validationService
@@ -45,8 +44,7 @@ package patient {
     PatientWriteService .up.> Promise
     PatientWriteService ..> Patient
     PatientWriteService .up.> PatientInvalid
-    PatientWriteService .up.> TitelExists
-    PatientWriteService .up.> IsbnExists
+    PatientWriteService .up.> VersichertennummerExists
     PatientWriteService .up.> VersionInvalid
     PatientWriteService .up.> VersionOutdated
 
@@ -54,7 +52,6 @@ package patient {
     Patient .up[hidden].> Promise
     Patient .up[hidden].> Injectable
     Patient .up[hidden].> InjectRepository
-    TitelExists .up[hidden].> Patient
     PatientValidationService .[hidden].> Repository
   }
 }

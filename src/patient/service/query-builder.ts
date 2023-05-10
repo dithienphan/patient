@@ -11,7 +11,7 @@ import { typeOrmModuleOptions } from '../../config/db.js';
 export interface BuildIdParams {
     /** ID des gesuchten Patienten. */
     id: number;
-    /** Sollen die Abbildungen mitgeladen werden? */
+    /** Sollen die Operationen mitgeladen werden? */
     mitOperationen?: boolean;
 }
 /**
